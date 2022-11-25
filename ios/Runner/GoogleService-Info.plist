@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>80179687611-2v4bmq6a53oeiofes18qldr06mljie32.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.80179687611-2v4bmq6a53oeiofes18qldr06mljie32</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAfLnALUdqtj9weZpWm7bZL3ij9ZcgV3RI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>80179687611</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>gr1.roadcycle</string>
+	<key>PROJECT_ID</key>
+	<string>roadcycle-d8d06</string>
+	<key>STORAGE_BUCKET</key>
+	<string>roadcycle-d8d06.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:80179687611:ios:37e75585770f06df16b99e</string>
+</dict>
+</plist>

@@ -1,6 +1,7 @@
 // ignore: file_names
 // ignore_for_file: file_names, duplicate_ignore
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:roadcycle/utility/AppColors.dart';
 
@@ -42,9 +43,10 @@ class AllRoutes extends StatelessWidget {
               },
             ),
             ListTile(
-              title: const Text('Login'),
+              title: const Text('Logout'),
               onTap: () {
-                Navigator.of(context).pushNamed("/my_login");
+                FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushNamed("");
               },
             ),
           ],

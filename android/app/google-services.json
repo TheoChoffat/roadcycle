@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "80179687611",
+    "project_id": "roadcycle-d8d06",
+    "storage_bucket": "roadcycle-d8d06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80179687611:android:57e17006a620be4316b99e",
+        "android_client_info": {
+          "package_name": "gr1.roadcycle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80179687611-iqbnkv1od5l74ddmeocqi56ekqqljd6g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJY8BjUi3hjsqNs5JPmyZaw-Top35evvA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80179687611-iqbnkv1od5l74ddmeocqi56ekqqljd6g.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "80179687611-2v4bmq6a53oeiofes18qldr06mljie32.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "gr1.roadcycle"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
