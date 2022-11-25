@@ -10,7 +10,6 @@ class AppColors {
 class _Main {
   Color orange = const Color(0xffef4f19);
   Color white = const Color(0xfffbf8f7);
-  Color black = const Color(0x00000000);
 }
 
 class _Scaffold {

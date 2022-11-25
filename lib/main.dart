@@ -6,6 +6,7 @@ import 'package:roadcycle/screens/my_settings.dart';
 import 'package:roadcycle/screens/my_routes.dart';
 import 'package:roadcycle/screens/my_map.dart';
 import 'package:roadcycle/screens/app_start.dart';
+import 'package:roadcycle/screens/my_home.dart';
 
 import 'firebase_options.dart';
 import 'screens/auth/utils.dart';
@@ -37,8 +38,10 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const AppStart());
           case "/my_map":
             return MaterialPageRoute(builder: (context) => const MyMap());
+          case "/my_home":
+            return MaterialPageRoute(builder: (context) => const MyHome());
           default:
-            return MaterialPageRoute(builder: (context) => const AuthPage());
+            return MaterialPageRoute(builder: (context) => const AppStart());
         }
       },
     );
