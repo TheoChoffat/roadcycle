@@ -7,42 +7,101 @@ class AppStart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget buttonSection = Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        _buildButtonColumn(AppColors.main.black, Icons.call, 'CALL'),
-        _buildButtonColumn(AppColors.main.black, Icons.near_me, 'ROUTE'),
-        _buildButtonColumn(AppColors.main.black, Icons.share, 'SHARE'),
-      ],
+    Widget buttonSection = Container(
+      margin: const EdgeInsets.only(left: 30.0, right: 30.0),
+      height: 100,
+      decoration: BoxDecoration(
+          color: AppColors.main.white,
+          borderRadius: const BorderRadius.all(Radius.circular(15))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          _buildButtonColumn(const Color.fromARGB(255, 0, 0, 0),
+              Icons.account_circle, 'Login', context),
+          _buildButtonColumn(const Color.fromARGB(255, 0, 0, 0),
+              Icons.app_registration, 'Register', context),
+        ],
+      ),
     );
 
     return MaterialApp(
-      title: 'Flutter layout demo',
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Flutter test'),
-        ),
+        backgroundColor: AppColors.main.orange,
         body: ListView(
           children: [
-            buttonSection,
+            Container(
+              height: 100,
+            ),
+            Image.asset(
+              'assets/images/logo_roadcycle_orange.png',
+              height: 35,
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 90.0, bottom: 90.0),
+              child: Image.asset(
+                'assets/images/logo_start_cycle.png',
+                height: 250,
+                width: 250,
+              ),
+            ),
+            Stack(children: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(top: 40.0),
+                alignment: Alignment.bottomCenter,
+                height: 130.0,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.elliptical(30, 20),
+                    topRight: Radius.elliptical(30, 20),
+                  ),
+                  color: Colors.black,
+                ),
+                //child: Image.asset("assets/bgImage.jpg"),
+              ),
+              buttonSection,
+            ]),
           ],
         ),
       ),
     );
   }
 
-  Column _buildButtonColumn(Color color, IconData icon, String label) {
+  Column _buildButtonColumn(
+      Color color, IconData icon, String label, BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(icon, color: color),
+        Material(
+          child: InkWell(
+            splashColor: Colors.grey,
+            onTap: () => {
+              if (label == "Login")
+                {Navigator.of(context).pushNamed("/my_home")}
+              else
+                {Navigator.of(context).pushNamed("/my_routes")}
+            },
+            child: Container(
+                decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.main.orange),
+                    borderRadius: const BorderRadius.all(Radius.circular(10))),
+                child: Container(
+                  margin: const EdgeInsets.only(
+                      left: 5.0, right: 5.0, top: 5.0, bottom: 5.0),
+                  child: Icon(
+                    icon,
+                    color: color,
+                    size: 35,
+                  ),
+                )),
+          ),
+        ),
         Container(
           margin: const EdgeInsets.only(top: 8),
           child: Text(
             label,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 15,
               fontWeight: FontWeight.w400,
               color: color,
             ),

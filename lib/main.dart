@@ -6,6 +6,7 @@ import 'package:roadcycle/screens/my_routes.dart';
 import 'package:roadcycle/screens/my_map.dart';
 import 'package:roadcycle/screens/app_start.dart';
 import 'package:roadcycle/screens/my_register.dart';
+import 'package:roadcycle/screens/my_home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -35,8 +36,10 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const MyMap());
           case "/my_register":
             return MaterialPageRoute(builder: (context) => const MyRegister());
+          case "/my_home":
+            return MaterialPageRoute(builder: (context) => const MyHome());
           default:
-            return MaterialPageRoute(builder: (context) => const MyLogin());
+            return MaterialPageRoute(builder: (context) => const AppStart());
         }
       },
     );
