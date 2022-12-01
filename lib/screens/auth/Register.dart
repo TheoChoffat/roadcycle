@@ -8,9 +8,7 @@ import '../all_routes.dart';
 import 'utils.dart';
 
 class RegisterWidget extends StatefulWidget {
-  const RegisterWidget({super.key, required this.onClickedSignIn});
-
-  final Function() onClickedSignIn;
+  const RegisterWidget({super.key});
 
   @override
   State<RegisterWidget> createState() => _RegisterWidgetState();
@@ -141,7 +139,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                             children: [
                               TextSpan(
                                   recognizer: TapGestureRecognizer()
-                                    ..onTap = widget.onClickedSignIn,
+                                    ..onTap = () => Navigator.of(context)
+                                        .pushNamed("/login"),
                                   text: "Sign In",
                                   style: const TextStyle(
                                     decoration: TextDecoration.underline,

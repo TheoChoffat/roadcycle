@@ -77,9 +77,9 @@ class AppStart extends StatelessWidget {
             splashColor: Colors.grey,
             onTap: () => {
               if (label == "Login")
-                {Navigator.of(context).pushNamed("/my_home")}
+                {Navigator.of(context).pushNamed("/login")}
               else
-                {Navigator.of(context).pushNamed("/my_routes")}
+                {Navigator.of(context).pushNamed("/register")}
             },
             child: Container(
                 decoration: BoxDecoration(

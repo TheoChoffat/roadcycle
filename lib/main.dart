@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:roadcycle/screens/auth/AuthPage.dart';
 import 'package:roadcycle/screens/all_routes.dart';
+import 'package:roadcycle/screens/auth/Login.dart';
+import 'package:roadcycle/screens/auth/Register.dart';
 import 'package:roadcycle/screens/my_settings.dart';
 import 'package:roadcycle/screens/my_routes.dart';
 import 'package:roadcycle/screens/my_map.dart';
@@ -40,6 +41,11 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const MyMap());
           case "/my_home":
             return MaterialPageRoute(builder: (context) => const MyHome());
+          case "/login":
+            return MaterialPageRoute(builder: (context) => const LoginWidget());
+          case "/register":
+            return MaterialPageRoute(
+                builder: (context) => const RegisterWidget());
           default:
             return MaterialPageRoute(builder: (context) => const AppStart());
         }

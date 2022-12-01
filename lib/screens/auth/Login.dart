@@ -6,9 +6,9 @@ import '../all_routes.dart';
 import 'utils.dart';
 
 class LoginWidget extends StatefulWidget {
-  const LoginWidget({super.key, required this.onClickedSignUp});
+  const LoginWidget({super.key});
 
-  final VoidCallback onClickedSignUp;
+  //final VoidCallback onClickedSignUp;
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
@@ -39,6 +39,10 @@ class _LoginWidgetState extends State<LoginWidget> {
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
     }
+  }
+
+  void goToRegisterPage() {
+    Navigator.of(context).pushNamed("/register");
   }
 
   @override
@@ -82,7 +86,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                     children: [
                       TextSpan(
                           recognizer: TapGestureRecognizer()
-                            ..onTap = widget.onClickedSignUp,
+                            ..onTap = () =>
+                                Navigator.of(context).pushNamed("/register"),
                           text: "Sign Up",
                           style: const TextStyle(
                             decoration: TextDecoration.underline,
