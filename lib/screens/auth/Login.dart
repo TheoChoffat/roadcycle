@@ -2,16 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:roadcycle/screens/auth/Register.dart';
-import 'package:roadcycle/screens/my_home.dart';
-
-import '../all_routes.dart';
 import 'utils.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
-
-  //final VoidCallback onClickedSignUp;
 
   @override
   State<LoginWidget> createState() => _LoginWidgetState();
@@ -48,8 +42,9 @@ class _LoginWidgetState extends State<LoginWidget> {
       });
 
       if (isAdmin == true) {
+        //Change after to
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/register");
+        Navigator.of(context).pushNamed("/all_routes");
       } else {
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushNamed("/my_home");
