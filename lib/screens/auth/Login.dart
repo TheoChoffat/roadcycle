@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:roadcycle/screens/auth/Register.dart';
+import 'package:roadcycle/screens/my_home.dart';
 
 import '../all_routes.dart';
 import 'utils.dart';
@@ -31,11 +34,26 @@ class _LoginWidgetState extends State<LoginWidget> {
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
       );
-      // ignore: use_build_context_synchronously
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const AllRoutes()),
-      );
+
+      final docUser = FirebaseFirestore.instance
+          .collection("user")
+          .doc(FirebaseAuth.instance.currentUser?.uid);
+
+      final isAdmin = await FirebaseFirestore.instance
+          .collection("user")
+          .doc(FirebaseAuth.instance.currentUser?.uid)
+          .get()
+          .then((value) {
+        return value.data()!['isAdmin'];
+      });
+
+      if (isAdmin == true) {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushNamed("/register");
+      } else {
+        // ignore: use_build_context_synchronously
+        Navigator.of(context).pushNamed("/my_home");
+      }
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
     }

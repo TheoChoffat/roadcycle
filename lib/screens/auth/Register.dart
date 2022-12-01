@@ -43,7 +43,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           .doc(FirebaseAuth.instance.currentUser?.uid);
       final json = {
         "firstname": firstnameController.text.trim(),
-        "lastname": lastnameController.text.trim()
+        "lastname": lastnameController.text.trim(),
+        "isAdmin": false
       };
 
       await docUser.set(json);
