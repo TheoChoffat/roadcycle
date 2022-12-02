@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import '../../utility/AppColors.dart';
 import '../all_routes.dart';
 import 'utils.dart';
 
@@ -62,93 +63,165 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Form(
-                key: formKey,
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const SizedBox(height: 40),
-                      TextFormField(
-                        controller: firstnameController,
-                        cursorColor: Colors.white,
-                        textInputAction: TextInputAction.next,
-                        decoration:
-                            const InputDecoration(labelText: "Enter Firstname"),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (firstname) =>
-                            firstname != null && firstname.length < 2
-                                ? 'Enter your Firstname'
-                                : null,
-                      ),
-                      const SizedBox(height: 40),
-                      TextFormField(
-                        controller: lastnameController,
-                        cursorColor: Colors.white,
-                        textInputAction: TextInputAction.next,
-                        decoration:
-                            const InputDecoration(labelText: "Enter Lastname"),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (lastname) =>
-                            lastname != null && lastname.length < 2
-                                ? 'Enter your Lastname'
-                                : null,
-                      ),
-                      const SizedBox(height: 40),
-                      TextFormField(
-                        controller: emailController,
-                        cursorColor: Colors.white,
-                        textInputAction: TextInputAction.next,
-                        decoration:
-                            const InputDecoration(labelText: "Enter Email"),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (email) =>
-                            email != null && !EmailValidator.validate(email)
-                                ? 'Enter a valid email'
-                                : null,
-                      ),
-                      const SizedBox(height: 40),
-                      TextFormField(
-                        controller: passwordController,
-                        textInputAction: TextInputAction.done,
-                        decoration:
-                            const InputDecoration(labelText: "Enter Password"),
-                        obscureText: true,
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (value) => value != null && value.length < 6
-                            ? 'Enter min. 6 Characters'
-                            : null,
-                      ),
-                      const SizedBox(height: 20),
-                      ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: const Size.fromHeight(50),
-                        ),
-                        icon: const Icon(Icons.lock_open, size: 32),
-                        label: const Text(
-                          'Sign Up',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                        onPressed: signUp,
-                      ),
-                      const SizedBox(height: 24),
-                      RichText(
-                        text: TextSpan(
-                            style: const TextStyle(color: Colors.black),
-                            text: "Already have an Account?  ",
-                            children: [
-                              TextSpan(
-                                  recognizer: TapGestureRecognizer()
-                                    ..onTap = () => Navigator.of(context)
-                                        .pushNamed("/login"),
-                                  text: "Sign In",
+        backgroundColor: AppColors.main.orange,
+        body: ListView(children: [
+          Container(
+            height: 80,
+          ),
+          Image.asset(
+            'assets/images/logo_roadcycle_orange.png',
+            height: 35,
+          ),
+          Container(
+            height: 30,
+          ),
+          Container(
+              margin: const EdgeInsets.fromLTRB(16, 0, 16, 0),
+              height: 560,
+              decoration: BoxDecoration(
+                  color: AppColors.main.white,
+                  borderRadius: const BorderRadius.all(Radius.circular(15))),
+              padding: const EdgeInsets.all(16),
+              child: Padding(
+                  padding: const EdgeInsets.fromLTRB(30.0, 0.0, 30.0, 0.0),
+                  child: Form(
+                      key: formKey,
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            TextFormField(
+                              controller: firstnameController,
+                              cursorColor: Colors.white,
+                              textInputAction: TextInputAction.next,
+                              decoration: const InputDecoration(
+                                labelText: "Enter Firstname",
+                                labelStyle: TextStyle(color: Colors.black54),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffef4f19)),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffef4f19)),
+                                ),
+                              ),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (firstname) =>
+                                  firstname != null && firstname.length < 2
+                                      ? 'Enter your Firstname'
+                                      : null,
+                            ),
+                            const SizedBox(height: 40),
+                            TextFormField(
+                              controller: lastnameController,
+                              cursorColor: Colors.white,
+                              textInputAction: TextInputAction.next,
+                              decoration: const InputDecoration(
+                                labelText: "Enter Lastname",
+                                labelStyle: TextStyle(color: Colors.black54),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffef4f19)),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffef4f19)),
+                                ),
+                              ),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (lastname) =>
+                                  lastname != null && lastname.length < 2
+                                      ? 'Enter your Lastname'
+                                      : null,
+                            ),
+                            const SizedBox(height: 40),
+                            TextFormField(
+                              controller: emailController,
+                              cursorColor: Colors.white,
+                              textInputAction: TextInputAction.next,
+                              decoration: const InputDecoration(
+                                labelText: "Enter Email",
+                                labelStyle: TextStyle(color: Colors.black54),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffef4f19)),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffef4f19)),
+                                ),
+                              ),
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (email) => email != null &&
+                                      !EmailValidator.validate(email)
+                                  ? 'Enter a valid email'
+                                  : null,
+                            ),
+                            const SizedBox(height: 40),
+                            TextFormField(
+                              controller: passwordController,
+                              textInputAction: TextInputAction.done,
+                              decoration: const InputDecoration(
+                                labelText: "Enter Password",
+                                labelStyle: TextStyle(color: Colors.black54),
+                                enabledBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffef4f19)),
+                                ),
+                                focusedBorder: UnderlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Color(0xffef4f19)),
+                                ),
+                              ),
+                              obscureText: true,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
+                              validator: (value) =>
+                                  value != null && value.length < 6
+                                      ? 'Enter min. 6 Characters'
+                                      : null,
+                            ),
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              height: 60,
+                              width: 200,
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: AppColors.main.orange,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ),
+                                ),
+                                onPressed: signUp,
+                                child: const Text(
+                                  'Sign up',
+                                  style: TextStyle(fontSize: 25),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            RichText(
+                              text: TextSpan(
                                   style: const TextStyle(
-                                    decoration: TextDecoration.underline,
-                                    color: Colors.black,
-                                  ))
-                            ]),
-                      )
-                    ]))));
+                                      color: Colors.black, fontSize: 16),
+                                  text: "Already have an Account?  ",
+                                  children: [
+                                    TextSpan(
+                                        recognizer: TapGestureRecognizer()
+                                          ..onTap = () => Navigator.of(context)
+                                              .pushNamed("/login"),
+                                        text: "Sign In",
+                                        style: const TextStyle(
+                                            decoration:
+                                                TextDecoration.underline,
+                                            color: Colors.black,
+                                            fontSize: 16))
+                                  ]),
+                            )
+                          ]))))
+        ]));
   }
 }
