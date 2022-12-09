@@ -35,9 +35,19 @@ class _AllRoutesState extends State<AllRoutes> {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
               return ListTile(
-                title: Text(data['name']),
-                subtitle: Text(data['startPoint'] + " - " + data['endPoint']),
-              );
+                  title: Text(data['name']),
+                  subtitle: Text(data['startPoint'] + " - " + data['endPoint']),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.favorite_border)),
+                    ],
+                  ),
+                  onTap: () {
+                    debugPrint("ID: " + document.reference.id);
+                  });
             }).toList(),
           );
         },
