@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:roadcycle/screens/all_routes.dart';
 import 'package:roadcycle/screens/auth/Login.dart';
 import 'package:roadcycle/screens/auth/Register.dart';
@@ -10,8 +11,10 @@ import 'package:roadcycle/screens/my_home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
+import 'l10n/l10n.dart';
 import 'screens/auth/utils.dart';
 import 'screens/map/display/map_default.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 late SharedPreferences sharedPreferences;
 
@@ -29,6 +32,13 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       scaffoldMessengerKey: Utils.messengerKey,
+      supportedLocales: L10n.all,
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ],
       title: 'Flutter Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
       onGenerateRoute: (settings) {

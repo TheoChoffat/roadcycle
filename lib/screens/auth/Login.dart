@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '../../utility/AppColors.dart';
 import 'utils.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({super.key});
@@ -86,11 +87,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const SizedBox(height: 40),
-                        const Align(
+                        Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Username",
-                            style: TextStyle(color: Colors.black, fontSize: 25),
+                            AppLocalizations.of(context)!.username,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 25),
                           ),
                         ),
                         TextField(
@@ -108,11 +110,12 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                         ),
                         const SizedBox(height: 40),
-                        const Align(
+                        Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            "Password",
-                            style: TextStyle(color: Colors.black, fontSize: 25),
+                            AppLocalizations.of(context)!.password,
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 25),
                           ),
                         ),
                         TextField(
@@ -142,9 +145,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                               ),
                             ),
                             onPressed: signIn,
-                            child: const Text(
-                              'Sign in',
-                              style: TextStyle(fontSize: 25),
+                            child: Text(
+                              AppLocalizations.of(context)!.signIn,
+                              style: const TextStyle(fontSize: 25),
                             ),
                           ),
                         ),
@@ -153,13 +156,13 @@ class _LoginWidgetState extends State<LoginWidget> {
                           text: TextSpan(
                               style: const TextStyle(
                                   color: Colors.black, fontSize: 16),
-                              text: "No Account?  ",
+                              text: AppLocalizations.of(context)!.noAccount,
                               children: [
                                 TextSpan(
                                     recognizer: TapGestureRecognizer()
                                       ..onTap = () => Navigator.of(context)
                                           .pushNamed("/register"),
-                                    text: "Sign Up",
+                                    text: AppLocalizations.of(context)!.signUp,
                                     style: const TextStyle(
                                         decoration: TextDecoration.underline,
                                         color: Colors.black,

@@ -1,6 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:roadcycle/utility/AppColors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppStart extends StatelessWidget {
   const AppStart({super.key});
@@ -18,8 +19,11 @@ class AppStart extends StatelessWidget {
         children: [
           _buildButtonColumn(const Color.fromARGB(255, 0, 0, 0),
               Icons.account_circle, 'Login', context),
-          _buildButtonColumn(const Color.fromARGB(255, 0, 0, 0),
-              Icons.app_registration, 'Register', context),
+          _buildButtonColumn(
+              const Color.fromARGB(255, 0, 0, 0),
+              Icons.app_registration,
+              AppLocalizations.of(context)!.register,
+              context),
         ],
       ),
     );

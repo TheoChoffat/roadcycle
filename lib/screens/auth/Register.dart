@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../utility/AppColors.dart';
 import '../all_routes.dart';
 import 'utils.dart';
@@ -93,62 +94,67 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               controller: firstnameController,
                               cursorColor: Colors.white,
                               textInputAction: TextInputAction.next,
-                              decoration: const InputDecoration(
-                                labelText: "Enter Firstname",
-                                labelStyle: TextStyle(color: Colors.black54),
-                                enabledBorder: UnderlineInputBorder(
+                              decoration: InputDecoration(
+                                labelText:
+                                    AppLocalizations.of(context)!.firstname,
+                                labelStyle:
+                                    const TextStyle(color: Colors.black54),
+                                enabledBorder: const UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xffef4f19)),
                                 ),
-                                focusedBorder: UnderlineInputBorder(
+                                focusedBorder: const UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xffef4f19)),
                                 ),
                               ),
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              validator: (firstname) =>
-                                  firstname != null && firstname.length < 2
-                                      ? 'Enter your Firstname'
-                                      : null,
+                              validator: (firstname) => firstname != null &&
+                                      firstname.length < 2
+                                  ? AppLocalizations.of(context)!.firstnameError
+                                  : null,
                             ),
-                            const SizedBox(height: 40),
+                            const SizedBox(height: 20),
                             TextFormField(
                               controller: lastnameController,
                               cursorColor: Colors.white,
                               textInputAction: TextInputAction.next,
-                              decoration: const InputDecoration(
-                                labelText: "Enter Lastname",
-                                labelStyle: TextStyle(color: Colors.black54),
-                                enabledBorder: UnderlineInputBorder(
+                              decoration: InputDecoration(
+                                labelText:
+                                    AppLocalizations.of(context)!.lastname,
+                                labelStyle:
+                                    const TextStyle(color: Colors.black54),
+                                enabledBorder: const UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xffef4f19)),
                                 ),
-                                focusedBorder: UnderlineInputBorder(
+                                focusedBorder: const UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xffef4f19)),
                                 ),
                               ),
                               autovalidateMode:
                                   AutovalidateMode.onUserInteraction,
-                              validator: (lastname) =>
-                                  lastname != null && lastname.length < 2
-                                      ? 'Enter your Lastname'
-                                      : null,
+                              validator: (lastname) => lastname != null &&
+                                      lastname.length < 2
+                                  ? AppLocalizations.of(context)!.lastnameError
+                                  : null,
                             ),
-                            const SizedBox(height: 40),
+                            const SizedBox(height: 20),
                             TextFormField(
                               controller: emailController,
                               cursorColor: Colors.white,
                               textInputAction: TextInputAction.next,
-                              decoration: const InputDecoration(
-                                labelText: "Enter Email",
-                                labelStyle: TextStyle(color: Colors.black54),
-                                enabledBorder: UnderlineInputBorder(
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.email,
+                                labelStyle:
+                                    const TextStyle(color: Colors.black54),
+                                enabledBorder: const UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xffef4f19)),
                                 ),
-                                focusedBorder: UnderlineInputBorder(
+                                focusedBorder: const UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xffef4f19)),
                                 ),
@@ -157,21 +163,23 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   AutovalidateMode.onUserInteraction,
                               validator: (email) => email != null &&
                                       !EmailValidator.validate(email)
-                                  ? 'Enter a valid email'
+                                  ? AppLocalizations.of(context)!.emailError
                                   : null,
                             ),
-                            const SizedBox(height: 40),
+                            const SizedBox(height: 20),
                             TextFormField(
                               controller: passwordController,
                               textInputAction: TextInputAction.done,
-                              decoration: const InputDecoration(
-                                labelText: "Enter Password",
-                                labelStyle: TextStyle(color: Colors.black54),
-                                enabledBorder: UnderlineInputBorder(
+                              decoration: InputDecoration(
+                                labelText:
+                                    AppLocalizations.of(context)!.passwordEnter,
+                                labelStyle:
+                                    const TextStyle(color: Colors.black54),
+                                enabledBorder: const UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xffef4f19)),
                                 ),
-                                focusedBorder: UnderlineInputBorder(
+                                focusedBorder: const UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Color(0xffef4f19)),
                                 ),
@@ -181,7 +189,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   AutovalidateMode.onUserInteraction,
                               validator: (value) =>
                                   value != null && value.length < 6
-                                      ? 'Enter min. 6 Characters'
+                                      ? AppLocalizations.of(context)!
+                                          .passwordEnterError
                                       : null,
                             ),
                             const SizedBox(height: 20),
@@ -196,9 +205,9 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                                   ),
                                 ),
                                 onPressed: signUp,
-                                child: const Text(
-                                  'Sign up',
-                                  style: TextStyle(fontSize: 25),
+                                child: Text(
+                                  AppLocalizations.of(context)!.signUp,
+                                  style: const TextStyle(fontSize: 25),
                                 ),
                               ),
                             ),
@@ -207,13 +216,15 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                               text: TextSpan(
                                   style: const TextStyle(
                                       color: Colors.black, fontSize: 16),
-                                  text: "Already have an Account?  ",
+                                  text: AppLocalizations.of(context)!
+                                      .alreadyAccount,
                                   children: [
                                     TextSpan(
                                         recognizer: TapGestureRecognizer()
                                           ..onTap = () => Navigator.of(context)
                                               .pushNamed("/login"),
-                                        text: "Sign In",
+                                        text: AppLocalizations.of(context)!
+                                            .signIn,
                                         style: const TextStyle(
                                             decoration:
                                                 TextDecoration.underline,

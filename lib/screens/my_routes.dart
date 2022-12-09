@@ -2,9 +2,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../utility/AppColors.dart';
+import '../utility/drawerWidget.dart';
 
 class MyRoutes extends StatefulWidget {
   const MyRoutes({super.key});
@@ -18,14 +18,14 @@ class _MyRoutesState extends State<MyRoutes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Routes'),
+        title: Text(AppLocalizations.of(context)!.myRoutes),
         backgroundColor: AppColors.main.orange,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _routes,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Text("Something went wrong");
+            return Text(AppLocalizations.of(context)!.somethingWrong);
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -54,39 +54,8 @@ class _MyRoutesState extends State<MyRoutes> {
           );
         },
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Container(height: 25),
-            ListTile(
-              leading: const Icon(Icons.directions_bike),
-              title: const Text('All routes'),
-              onTap: () {
-                Navigator.of(context).pushNamed("/all_routes");
-              },
-            ),
-            ListTile(
-              title: const Text('My Routes'),
-              onTap: () {
-                Navigator.of(context).pushNamed("/my_routes");
-              },
-            ),
-            ListTile(
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.of(context).pushNamed("/my_settings");
-              },
-            ),
-            ListTile(
-              title: const Text('Logout'),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.of(context).pushNamed("");
-              },
-            ),
-          ],
-        ),
+      drawer: const Drawer(
+        child: DrawerWidget(),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
@@ -109,13 +78,13 @@ class _MyRoutesState extends State<MyRoutes> {
   showAlertDialog(BuildContext context, String id) {
     // set up the buttons
     Widget cancelButton = TextButton(
-      child: const Text("Cancel"),
+      child: Text(AppLocalizations.of(context)!.cancel),
       onPressed: () {
         Navigator.of(context).pop();
       },
     );
     Widget continueButton = TextButton(
-      child: const Text("Delete"),
+      child: Text(AppLocalizations.of(context)!.delete),
       onPressed: () {
         FirebaseFirestore.instance.collection("route").doc(id).delete();
         Navigator.of(context).pop();
@@ -124,8 +93,8 @@ class _MyRoutesState extends State<MyRoutes> {
 
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
-      title: const Text("Delete Route"),
-      content: const Text("Are you sure you want to delete this route?"),
+      title: Text(AppLocalizations.of(context)!.deleteRoute),
+      content: Text(AppLocalizations.of(context)!.deleteRouteDescription),
       actions: [
         cancelButton,
         continueButton,

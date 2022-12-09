@@ -2,9 +2,10 @@
 // ignore_for_file: file_names, duplicate_ignore
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:roadcycle/utility/AppColors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:roadcycle/utility/drawerWidget.dart';
 
 class AllRoutes extends StatefulWidget {
   const AllRoutes({super.key});
@@ -17,14 +18,14 @@ class _AllRoutesState extends State<AllRoutes> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('All Routes'),
+        title: Text(AppLocalizations.of(context)!.allRoutes),
         backgroundColor: AppColors.main.orange,
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _routes,
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            return const Text("Something went wrong");
+            return Text(AppLocalizations.of(context)!.somethingWrong);
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
@@ -52,39 +53,8 @@ class _AllRoutesState extends State<AllRoutes> {
           );
         },
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            Container(height: 25),
-            ListTile(
-              leading: const Icon(Icons.directions_bike),
-              title: const Text('All routes'),
-              onTap: () {
-                Navigator.of(context).pushNamed("/all_routes");
-              },
-            ),
-            ListTile(
-              title: const Text('My Routes'),
-              onTap: () {
-                Navigator.of(context).pushNamed("/my_routes");
-              },
-            ),
-            ListTile(
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.of(context).pushNamed("/my_settings");
-              },
-            ),
-            ListTile(
-              title: const Text('Logout'),
-              onTap: () {
-                FirebaseAuth.instance.signOut();
-                Navigator.of(context).pushNamed("");
-              },
-            ),
-          ],
-        ),
+      drawer: const Drawer(
+        child: DrawerWidget(),
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
