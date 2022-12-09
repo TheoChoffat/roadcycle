@@ -8,12 +8,17 @@ import 'package:roadcycle/screens/my_routes.dart';
 import 'package:roadcycle/screens/my_map.dart';
 import 'package:roadcycle/screens/app_start.dart';
 import 'package:roadcycle/screens/my_home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'screens/auth/utils.dart';
+import 'screens/map/display/map_default.dart';
+
+late SharedPreferences sharedPreferences;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  sharedPreferences = await SharedPreferences.getInstance();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const MyApp());
 }
@@ -39,6 +44,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => const AppStart());
           case "/my_map":
             return MaterialPageRoute(builder: (context) => const MyMap());
+          case "/createRoute":
+            return MaterialPageRoute(builder: (context) => const MapDefault());
           case "/my_home":
             return MaterialPageRoute(builder: (context) => const MyHome());
           case "/login":
