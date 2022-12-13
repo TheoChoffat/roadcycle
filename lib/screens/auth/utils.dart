@@ -13,3 +13,5 @@ class Utils {
       ..showSnackBar(snackBar);
   }
 }
+
+bool isAdmin = false;

@@ -35,7 +35,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           .collection("user")
           .doc(FirebaseAuth.instance.currentUser?.uid);
 
-      final isAdmin = await FirebaseFirestore.instance
+      final isAdminChecked = await FirebaseFirestore.instance
           .collection("user")
           .doc(FirebaseAuth.instance.currentUser?.uid)
           .get()
@@ -43,13 +43,15 @@ class _LoginWidgetState extends State<LoginWidget> {
         return value.data()!['isAdmin'];
       });
 
+      isAdmin = isAdminChecked;
+
       if (isAdmin == true) {
         //Change after to
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/all_routes");
+        Navigator.of(context).pushNamed("/my_routes");
       } else {
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/my_home");
+        Navigator.of(context).pushNamed("/all_routes");
       }
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
