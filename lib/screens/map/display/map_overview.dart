@@ -7,6 +7,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
 import '../../../main.dart';
+import '../../../utility/AppColors.dart';
 import '../widget/map_elevation.dart';
 import '../widget/route_info.dart';
 import '../widget/values_calculation.dart';
@@ -52,13 +53,19 @@ class _MapOverviewState extends State<MapOverview> {
     _markers.add(
       Marker(
         point: LatLng(sourceLocationList[0], sourceLocationList[1]),
-        builder: (context) => FlutterLogo(),
+        builder: (context) => Icon(
+          Icons.location_pin,
+          color: AppColors.main.orange,
+        ),
       ),
     );
     _markers.add(
       Marker(
         point: LatLng(destinationLocationList[0], destinationLocationList[1]),
-        builder: (context) => FlutterLogo(),
+        builder: (context) => Icon(
+          Icons.location_pin,
+          color: AppColors.main.orange,
+        ),
       ),
     );
     mid = LatLng((sourceLocationList[0] + destinationLocationList[0]) / 2,
@@ -84,7 +91,7 @@ class _MapOverviewState extends State<MapOverview> {
   // Draw segments to create a complete route
   setPolyLines() {
     Polyline polyline = Polyline(
-      color: Colors.lightBlue,
+      color: AppColors.main.orange,
       points: polyPoints,
     );
     polyLines.add(polyline);
@@ -121,12 +128,11 @@ class _MapOverviewState extends State<MapOverview> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(Icons.arrow_back)),
-        title: const Text('Review Ride'),
+        title: Image.asset(
+          'assets/images/logo_roadcycle_orange.png',
+          height: 20,
+        ),
+        backgroundColor: AppColors.main.orange,
       ),
       body: SafeArea(
         child: Stack(
@@ -187,8 +193,14 @@ class _MapOverviewState extends State<MapOverview> {
             ),
             Positioned(
               bottom: 200,
-              right: 0,
-              child: IconButton(onPressed: _resetTiles, icon: FlutterLogo()),
+              right: 10,
+              child: IconButton(
+                  onPressed: _resetTiles,
+                  icon: Icon(
+                    Icons.swap_horiz_rounded,
+                    size: 50,
+                    color: AppColors.main.orange,
+                  )),
             ),
             routeInfo(context, distance, durationFormatted, ascent, descent),
           ],

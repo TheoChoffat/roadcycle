@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -5,8 +7,8 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:roadcycle/screens/my_home.dart';
 import '../../utility/AppColors.dart';
-import '../all_routes.dart';
 import 'utils.dart';
 
 class RegisterWidget extends StatefulWidget {
@@ -54,7 +56,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       // ignore: use_build_context_synchronously
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const AllRoutes()),
+        MaterialPageRoute(builder: (context) => const MyHome()),
       );
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);

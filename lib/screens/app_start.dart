@@ -52,7 +52,7 @@ class AppStart extends StatelessWidget {
               Container(
                 margin: const EdgeInsets.only(top: 40.0),
                 alignment: Alignment.bottomCenter,
-                height: 130.0,
+                height: 330.0,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.elliptical(30, 20),

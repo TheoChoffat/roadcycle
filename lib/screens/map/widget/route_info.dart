@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../utility/AppColors.dart';
 import '../setup/shared_prefs.dart';
 
 // Display the information about the route
@@ -25,7 +26,7 @@ Widget routeInfo(BuildContext context, String distance,
                     style: Theme.of(context)
                         .textTheme
                         .titleMedium
-                        ?.copyWith(color: Colors.orange)),
+                        ?.copyWith(color: AppColors.main.orange)),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: ListTile(
@@ -41,7 +42,8 @@ Widget routeInfo(BuildContext context, String distance,
                 ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(20)),
+                        padding: const EdgeInsets.all(20),
+                        backgroundColor: AppColors.main.orange),
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const [

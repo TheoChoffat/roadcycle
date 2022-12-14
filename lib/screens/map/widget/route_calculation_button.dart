@@ -1,6 +1,6 @@
-
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
+import '../../../utility/AppColors.dart';
 import '../display/map_overview.dart';
 import '../services/api_manager.dart';
 import '../setup/shared_prefs.dart';
@@ -12,13 +12,16 @@ Widget routeCalculation(BuildContext context) {
       onPressed: () async {
         LatLng sourceLatLng = getRouteLatLngStored('source');
         LatLng destinationLatLng = getRouteLatLngStored('destination');
-        Map modifiedResponse = await getDirectionsResponse(sourceLatLng, destinationLatLng);
+        Map modifiedResponse =
+            await getDirectionsResponse(sourceLatLng, destinationLatLng);
 
-         // ignore: use_build_context_synchronously
-         Navigator.push(
-             context,
-             MaterialPageRoute(
-                 builder: (_) => MapOverview(modifiedResponse: modifiedResponse)));
+        // ignore: use_build_context_synchronously
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (_) =>
+                    MapOverview(modifiedResponse: modifiedResponse)));
       },
+      backgroundColor: AppColors.main.orange,
       label: const Text('Calculate route'));
 }

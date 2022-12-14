@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 
 import '../../../main.dart';
+import '../../../utility/AppColors.dart';
 
 // List displayed for the results from the api search
 Widget searchList(
@@ -31,9 +32,13 @@ Widget searchList(
               }
               FocusManager.instance.primaryFocus?.unfocus();
             },
-            leading: const SizedBox(
+            leading: SizedBox(
               height: double.infinity,
-              child: CircleAvatar(child: Icon(Icons.map)),
+              child: CircleAvatar(
+                backgroundColor: AppColors.main.orange,
+                foregroundColor: Colors.white,
+                child: const Icon(Icons.map),
+              ),
             ),
             title: Text(responses[index]['name'],
                 style: const TextStyle(fontWeight: FontWeight.bold)),

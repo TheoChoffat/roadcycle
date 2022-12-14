@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 
 import '../../../main.dart';
+import '../../../utility/AppColors.dart';
 import '../setup/shared_prefs.dart';
 import 'route_preparation.dart';
 
@@ -41,7 +42,6 @@ class _MapDefaultState extends State<MapDefault> {
 
       currentAddress = getCurrentAddressStored();
       currentCoord = getCurrentLatLngStored();
-      print(currentCoord);
 
       currentLatLng = double.parse(currentCoord.toString().substring(
           currentCoord.toString().indexOf('longitude:') + 10,
@@ -62,6 +62,13 @@ class _MapDefaultState extends State<MapDefault> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Image.asset(
+          'assets/images/logo_roadcycle_orange.png',
+          height: 20,
+        ),
+        backgroundColor: AppColors.main.orange,
+      ),
       body: Stack(
         children: [
           FlutterMap(
@@ -92,11 +99,11 @@ class _MapDefaultState extends State<MapDefault> {
                       markers: [
                         Marker(
                           point: LatLng(currentLongLng, currentLatLng),
-                          builder: (context) => FlutterLogo(),
+                          builder: (context) => const FlutterLogo(),
                         )
                       ],
                     )
-                  : MarkerLayer(),
+                  : const MarkerLayer(),
               Positioned(
                 bottom: 0,
                 child: SizedBox(
@@ -112,7 +119,7 @@ class _MapDefaultState extends State<MapDefault> {
                           const SizedBox(height: 20),
                           const Text('Your position:'),
                           Text(allowed ? currentAddress : "Unknown",
-                              style: const TextStyle(color: Colors.indigo)),
+                              style: TextStyle(color: AppColors.main.orange)),
                           const SizedBox(height: 20),
                           ElevatedButton(
                             onPressed: () => Navigator.push(
@@ -120,7 +127,8 @@ class _MapDefaultState extends State<MapDefault> {
                                 MaterialPageRoute(
                                     builder: (_) => const PrepareRoute())),
                             style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.all(20)),
+                                padding: const EdgeInsets.all(20),
+                                primary: AppColors.main.orange),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
@@ -139,9 +147,9 @@ class _MapDefaultState extends State<MapDefault> {
                 right: 0,
                 child: IconButton(
                     onPressed: _resetTiles,
-                    icon: Icon(Icons.swap_horiz_rounded),
+                    icon: const Icon(Icons.swap_horiz_rounded),
                     iconSize: 50,
-                    color: Colors.orange),
+                    color: AppColors.main.orange),
               ),
             ],
           ),

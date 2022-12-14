@@ -1,11 +1,15 @@
 // ignore: file_names
 // ignore_for_file: file_names, duplicate_ignore
 
+import 'dart:core';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:roadcycle/utility/AppColors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:roadcycle/utility/drawerWidget.dart';
+
+import '../utility/BottomNavigation.dart';
 
 class AllRoutes extends StatefulWidget {
   const AllRoutes({super.key});
@@ -15,10 +19,34 @@ class AllRoutes extends StatefulWidget {
 }
 
 class _AllRoutesState extends State<AllRoutes> {
+  Future addFavorite(String routeId) async {
+    final docUser = FirebaseFirestore.instance
+        .collection("user")
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection("favourites");
+    final json = {"routeId": routeId};
+
+    await docUser.add(json);
+  }
+
+  Future removeFavourite(String routeId) async {
+    FirebaseFirestore.instance
+        .collection('user')
+        .doc(FirebaseAuth.instance.currentUser?.uid)
+        .collection('favourites')
+        .where('routeId', isEqualTo: routeId)
+        .get()
+        .then((snapshot) {
+      snapshot.docs[0].reference.delete();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.allRoutes),
+        automaticallyImplyLeading: false,
         backgroundColor: AppColors.main.orange,
       ),
       body: StreamBuilder<QuerySnapshot>(
@@ -42,27 +70,21 @@ class _AllRoutesState extends State<AllRoutes> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       IconButton(
-                          onPressed: () {},
+                          onPressed: () =>
+                              removeFavourite(document.reference.id),
                           icon: const Icon(Icons.favorite_border)),
                     ],
                   ),
                   onTap: () {
-                    debugPrint("ID: " + document.reference.id);
+                    //debugPrint("ID: ${document.reference.id}");
                   });
             }).toList(),
           );
         },
       ),
-      drawer: const Drawer(
-        child: DrawerWidget(),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        child: Container(height: 50.0),
-      ),
+      bottomNavigationBar: const BottomNavigation(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pushNamed("/createRoute"),
-        tooltip: 'Increment Counter',
+        onPressed: () => Navigator.of(context).pushNamed("/my_home"),
         backgroundColor: AppColors.main.orange,
         child: const Icon(Icons.directions_bike),
       ),

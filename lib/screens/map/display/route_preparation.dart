@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../utility/AppColors.dart';
 import '../widget/route_calculation_button.dart';
 import '../widget/route_input.dart';
 import '../widget/search_list.dart';
@@ -59,10 +60,11 @@ class _PrepareRouteState extends State<PrepareRoute> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back)),
-        title: const Text('RoadCycle'),
+        title: Image.asset(
+          'assets/images/logo_roadcycle_orange.png',
+          height: 20,
+        ),
+        backgroundColor: AppColors.main.orange,
       ),
       body: SafeArea(
         child: SingleChildScrollView(

@@ -1,5 +1,4 @@
 import 'package:latlong2/latlong.dart';
-import 'package:intl/intl.dart';
 import 'map_elevation.dart';
 
 // Transform seconds into hours

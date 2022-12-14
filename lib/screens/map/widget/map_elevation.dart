@@ -11,8 +11,8 @@ class Elevation extends StatefulWidget {
 
   final Function(BuildContext context, Size size)? child;
 
-  Elevation(this.points,
-      {this.color, this.elevationGradientColors, this.child});
+  const Elevation(this.points,
+      {super.key, this.color, this.elevationGradientColors, this.child});
 
   @override
   State<StatefulWidget> createState() => _ElevationState();
@@ -25,11 +25,11 @@ class _ElevationState extends State<Elevation> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (BuildContext context, BoxConstraints bc) {
-      Offset _lbPadding = Offset(35, 6);
+      Offset lbPadding = const Offset(35, 6);
       _ElevationPainter elevationPainter = _ElevationPainter(widget.points,
           paintColor: widget.color ?? Colors.transparent,
           elevationGradientColors: widget.elevationGradientColors,
-          lbPadding: _lbPadding);
+          lbPadding: lbPadding);
       return GestureDetector(
           onHorizontalDragUpdate: (DragUpdateDetails details) {
             final pointFromPosition = elevationPainter
@@ -56,14 +56,14 @@ class _ElevationState extends State<Elevation> {
             ),
             if (widget.child != null && widget.child is Function)
               Container(
-                margin: EdgeInsets.only(left: _lbPadding.dx),
-                width: bc.maxWidth - _lbPadding.dx,
-                height: bc.maxHeight - _lbPadding.dy,
+                margin: EdgeInsets.only(left: lbPadding.dx),
+                width: bc.maxWidth - lbPadding.dx,
+                height: bc.maxHeight - lbPadding.dy,
                 child: Builder(
                     builder: (BuildContext context) => widget.child!(
                         context,
-                        Size(bc.maxWidth - _lbPadding.dx,
-                            bc.maxHeight - _lbPadding.dy))),
+                        Size(bc.maxWidth - lbPadding.dx,
+                            bc.maxHeight - lbPadding.dy))),
               ),
             if (_hoverLinePosition != null)
               Positioned(
@@ -75,7 +75,7 @@ class _ElevationState extends State<Elevation> {
                       Container(
                         height: bc.maxHeight,
                         width: 1,
-                        decoration: BoxDecoration(color: Colors.black),
+                        decoration: const BoxDecoration(color: Colors.black),
                       ),
                       if (_hoveredAltitude != null)
                         Text(
@@ -89,7 +89,6 @@ class _ElevationState extends State<Elevation> {
     });
   }
 }
-
 
 class _ElevationPainter extends CustomPainter {
   List<ElevationPoint> points;
@@ -137,7 +136,7 @@ class _ElevationPainter extends CustomPainter {
     if (elevationGradientColors != null) {
       List<Color> gradientColors = [paintColor];
       for (int i = 1; i < points.length; i++) {
-        double dX = lg.Distance().distance(points[i], points[i - 1]);
+        double dX = const lg.Distance().distance(points[i], points[i - 1]);
         double dZ = (points[i].altitude - points[i - 1].altitude);
 
         double gradient = 100 * dZ / dX;
@@ -179,8 +178,9 @@ class _ElevationPainter extends CustomPainter {
     int roundedAltitudeDiff = _max.ceil() - _min.floor();
     int axisStep = max(100, (roundedAltitudeDiff / 5).round());
 
-    List<double>.generate((roundedAltitudeDiff / axisStep).round(),
-        (i) => (axisStep * i + _min).toDouble()).forEach((altitude) {
+    for (var altitude in List<double>.generate(
+        (roundedAltitudeDiff / axisStep).round(),
+        (i) => (axisStep * i + _min).toDouble())) {
       double relativeAltitude = (altitude - _min) / (_max - _min);
       canvas.drawLine(
           Offset(lbPadding.dx, _getYForAltitude(relativeAltitude, size)),
@@ -188,13 +188,13 @@ class _ElevationPainter extends CustomPainter {
           axisPaint);
       TextPainter(
           text: TextSpan(
-              style: TextStyle(color: Colors.black, fontSize: 10),
+              style: const TextStyle(color: Colors.black, fontSize: 10),
               text: altitude.toInt().toString()),
           textDirection: TextDirection.ltr)
         ..layout()
         ..paint(
             canvas, Offset(5, _getYForAltitude(relativeAltitude, size) - 5));
-    });
+    }
 
     canvas.restore();
   }

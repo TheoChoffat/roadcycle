@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -35,11 +37,7 @@ class _LoginWidgetState extends State<LoginWidget> {
           .collection("user")
           .doc(FirebaseAuth.instance.currentUser?.uid);
 
-      final isAdminChecked = await FirebaseFirestore.instance
-          .collection("user")
-          .doc(FirebaseAuth.instance.currentUser?.uid)
-          .get()
-          .then((value) {
+      final isAdminChecked = await docUser.get().then((value) {
         return value.data()!['isAdmin'];
       });
 
@@ -51,7 +49,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         Navigator.of(context).pushNamed("/my_routes");
       } else {
         // ignore: use_build_context_synchronously
-        Navigator.of(context).pushNamed("/all_routes");
+        Navigator.of(context).pushNamed("/my_home");
       }
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);
