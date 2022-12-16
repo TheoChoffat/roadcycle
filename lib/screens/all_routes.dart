@@ -20,24 +20,6 @@ class AllRoutes extends StatefulWidget {
 }
 
 class _AllRoutesState extends State<AllRoutes> {
-  Future addFavorite(String routeId) async {
-    FirebaseFirestore.instance
-        .collection('user')
-        .doc(FirebaseAuth.instance.currentUser?.uid)
-        .update({
-      "favorites": FieldValue.arrayUnion([routeId])
-    });
-  }
-
-  Future removeFavourite(String routeId) async {
-    FirebaseFirestore.instance
-        .collection('user')
-        .doc(FirebaseAuth.instance.currentUser?.uid)
-        .update({
-      "favorites": FieldValue.arrayRemove([routeId])
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
