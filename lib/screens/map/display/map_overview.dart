@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 
@@ -33,7 +34,7 @@ class _MapOverviewState extends State<MapOverview> {
   final List<LatLng> polyLi = [];
   late List<ElevationPoint> elevationPoints;
   late LatLng mid;
-  final _mapController = MapController();
+  late final MapController _mapController;
 
   List sourceLocationList =
       json.decode(sharedPreferences.getString('source')!)['location']
@@ -47,9 +48,18 @@ class _MapOverviewState extends State<MapOverview> {
   late Map geometry;
   late String ascent;
   late String descent;
+  late LatLng source;
+  late LatLng destination;
+  late double minLat;
+  late double maxLat;
+  late double minLng;
+  late double maxLng;
 
   // Set markers
   setMarkers() {
+    source = LatLng(sourceLocationList[0], sourceLocationList[1]);
+    destination =
+        LatLng(destinationLocationList[0], destinationLocationList[1]);
     _markers.add(
       Marker(
         point: LatLng(sourceLocationList[0], sourceLocationList[1]),
@@ -75,12 +85,28 @@ class _MapOverviewState extends State<MapOverview> {
 
   //Prepare data to draw the segments
   void drawLines() {
+    minLat = 100;
+    maxLat = 0;
+    minLng = 100;
+    maxLng = 0;
     LineString ls =
         LineString(widget.modifiedResponse['geometry']['coordinates']);
 
     for (int i = 0; i < ls.lineString.length; i++) {
       polyPoints.add(LatLng(ls.lineString[i][1], ls.lineString[i][0]));
       polyLi.add(LatLng(ls.lineString[i][1], ls.lineString[i][0]));
+      if (ls.lineString[i][0] < minLat) {
+        minLat = ls.lineString[i][0];
+      }
+      if (ls.lineString[i][0] > maxLat) {
+        maxLat = ls.lineString[i][0];
+      }
+      if (ls.lineString[i][1] < minLng) {
+        minLng = ls.lineString[i][1];
+      }
+      if (ls.lineString[i][1] > maxLng) {
+        maxLng = ls.lineString[i][1];
+      }
     }
 
     if (polyPoints.length == ls.lineString.length) {
@@ -110,9 +136,10 @@ class _MapOverviewState extends State<MapOverview> {
   @override
   void initState() {
     super.initState();
+    _mapController = MapController();
+        setMarkers();
 
     _calculateValues();
-    setMarkers();
     drawLines();
   }
 
@@ -138,16 +165,18 @@ class _MapOverviewState extends State<MapOverview> {
         child: Stack(
           children: [
             FlutterMap(
+                            mapController: _mapController,
+
               options: MapOptions(
-                center: (mid),
+
                 maxBounds: LatLngBounds(
-                  LatLng(45.4, 5.8),
-                  LatLng(47.9, 10.7),
+                  LatLng(44.5, 5),
+                  LatLng(48.8, 12),
                 ),
-                zoom: 8,
-                minZoom: 8,
+                minZoom: 6,
                 maxZoom: 18,
                 interactiveFlags: InteractiveFlag.all,
+                onMapReady: () => fitBounds(),
               ),
               children: [
                 TileLayer(
@@ -218,6 +247,30 @@ class _MapOverviewState extends State<MapOverview> {
     descent = (widget.modifiedResponse['descent']).toString();
     mid = getCenterRoute(sourceLocationList[0], sourceLocationList[1],
         destinationLocationList[0], destinationLocationList[1]);
+
+    //DATA to save
+    // print(getPlacesStored('source'));
+    // print(json.decode(sharedPreferences.getString('source')!));
+    // print(json.decode(sharedPreferences.getString('destination')!));
+    // print(json.decode(sharedPreferences.getString('source')!)['location']['coordinates']);
+    // print(getPlacesStored('destination'));
+    // print(json.decode(sharedPreferences.getString('destination')!)['location']['coordinates']);
+    // print(distance);
+    // print(durationFormatted);
+    // print(descent);
+    // print(ascent);
+  }
+
+  fitBounds() {
+    CenterZoom centerZoom = _mapController.centerZoomFitBounds(
+        LatLngBounds(
+          LatLng(minLng, minLat),
+          LatLng(maxLng, maxLat),
+        ),
+        options: const FitBoundsOptions(
+          
+            padding: EdgeInsets.fromLTRB(10, 150, 10, 210)));
+    _mapController.move(centerZoom.center, centerZoom.zoom);
   }
 }
 

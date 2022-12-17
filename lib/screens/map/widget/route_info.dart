@@ -36,7 +36,7 @@ Widget routeInfo(BuildContext context, String distance,
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                     subtitle: Text(
-                        'Disance: $distance km | Time: $durationFormatted | Elevation: +$ascent m -$descent m'),
+                        'Distance: $distance km | Time: $durationFormatted | Elevation: +$ascent m -$descent m'),
                   ),
                 ),
                 ElevatedButton(

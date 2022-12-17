@@ -73,7 +73,22 @@ class _LocationFieldState extends State<LocationField> {
 
   @override
   Widget build(BuildContext context) {
-    String placeholderText = widget.isDestination ? 'Where to?' : 'Where from?';
+    String? placeholderText;
+    if (widget.isDestination) {
+      if (sharedPreferences.getString('source') != null) {
+        placeholderText =
+            json.decode(sharedPreferences.getString('source')!)['name'];
+      } else {
+        placeholderText = 'Where to?';
+      }
+    } else {
+      if (sharedPreferences.getString('destination') != null) {
+        placeholderText =
+            json.decode(sharedPreferences.getString('destination')!)['name'];
+      } else {
+        placeholderText = 'Where from?';
+      }
+    }
     IconData? iconData = position
         ? !widget.isDestination
             ? Icons.my_location

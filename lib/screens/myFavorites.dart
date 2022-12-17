@@ -2,11 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:latlong2/latlong.dart';
+import '../main.dart';
 import '../utility/AppColors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../utility/BottomNavigation.dart';
 import '../utility/RouteList.dart';
+import 'map/display/map_overview.dart';
+import 'map/services/api_manager.dart';
 
 class FavoritesWidget extends StatefulWidget {
   const FavoritesWidget({super.key});
@@ -65,8 +69,10 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                     document.data()! as Map<String, dynamic>;
 
                 return ListTile(
-                  title: Text(data['name']),
-                  subtitle: Text(data['startPoint'] + " - " + data['endPoint']),
+                       title: Text(data['routeName']),
+                          subtitle: Text(data['originName'] +
+                              " - " +
+                              data['destinationName']),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -83,6 +89,9 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                       )
                     ],
                   ),
+                   onTap: () {
+                            searchRoute(data);
+                   },
                 );
               }).toList(),
             );
@@ -99,4 +108,20 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
 
   final Stream<QuerySnapshot> routes =
       FirebaseFirestore.instance.collection('route').snapshots();
+
+      Future<void> searchRoute(Map<String, dynamic> data) async {
+    sharedPreferences.setString('source', data['sourceMeta']);
+    sharedPreferences.setString('destination', data['destinationMeta']);
+
+    LatLng source = LatLng(data['originLat'], data['originLng']);
+    LatLng destination = LatLng(data['destinationLat'], data['destinationLng']);
+    Map modifiedResponse = await getDirectionsResponse(source, destination);
+
+    print(modifiedResponse);
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => MapOverview(modifiedResponse: modifiedResponse)));
+  }
 }
