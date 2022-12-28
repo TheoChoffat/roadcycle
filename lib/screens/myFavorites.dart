@@ -69,10 +69,9 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                     document.data()! as Map<String, dynamic>;
 
                 return ListTile(
-                       title: Text(data['routeName']),
-                          subtitle: Text(data['originName'] +
-                              " - " +
-                              data['destinationName']),
+                  title: Text(data['routeName']),
+                  subtitle: Text(
+                      data['originName'] + " - " + data['destinationName']),
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -89,9 +88,9 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                       )
                     ],
                   ),
-                   onTap: () {
-                            searchRoute(data);
-                   },
+                  onTap: () {
+                    searchRoute(data);
+                  },
                 );
               }).toList(),
             );
@@ -109,7 +108,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
   final Stream<QuerySnapshot> routes =
       FirebaseFirestore.instance.collection('route').snapshots();
 
-      Future<void> searchRoute(Map<String, dynamic> data) async {
+  Future<void> searchRoute(Map<String, dynamic> data) async {
     sharedPreferences.setString('source', data['sourceMeta']);
     sharedPreferences.setString('destination', data['destinationMeta']);
 
@@ -117,7 +116,6 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
     LatLng destination = LatLng(data['destinationLat'], data['destinationLng']);
     Map modifiedResponse = await getDirectionsResponse(source, destination);
 
-    print(modifiedResponse);
     // ignore: use_build_context_synchronously
     Navigator.push(
         context,

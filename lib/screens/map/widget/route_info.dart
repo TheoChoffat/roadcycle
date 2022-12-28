@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../utility/AppColors.dart';
+import '../../auth/utils.dart';
 import '../setup/shared_prefs.dart';
 
 // Display the information about the route
@@ -39,16 +40,18 @@ Widget routeInfo(BuildContext context, String distance,
                         'Distance: $distance km | Time: $durationFormatted | Elevation: +$ascent m -$descent m'),
                   ),
                 ),
-                ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(20),
-                        backgroundColor: AppColors.main.orange),
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          Text('Save route'),
-                        ])),
+                isAdmin
+                    ? ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.all(20),
+                            backgroundColor: AppColors.main.orange),
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text('Save route'),
+                            ]))
+                    : Text(""),
               ]),
         ),
       ),

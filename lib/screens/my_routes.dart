@@ -39,7 +39,7 @@ class _MyRoutesState extends State<MyRoutes> {
                       FirebaseFirestore.instance
                           .collection('route')
                           .doc(id)
-                          .update({'name': nameController.text.trim()});
+                          .update({'routeName': nameController.text.trim()});
                       Navigator.of(context).pop();
                       nameController.text = "";
                     }
@@ -70,8 +70,9 @@ class _MyRoutesState extends State<MyRoutes> {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
               return ListTile(
-                title: Text(data['name']),
-                subtitle: Text(data['startPoint'] + " - " + data['endPoint']),
+                title: Text(data['routeName']),
+                subtitle:
+                    Text(data['originName'] + " - " + data['destinationName']),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

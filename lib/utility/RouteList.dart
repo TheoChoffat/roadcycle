@@ -1,9 +1,13 @@
-// ignore_for_file: file_names
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:latlong2/latlong.dart';
+
+import '../main.dart';
+import '../screens/map/display/map_overview.dart';
+import '../screens/map/services/api_manager.dart';
 
 Future addFavorite(String routeId) async {
   FirebaseFirestore.instance
@@ -34,6 +38,23 @@ class RouteList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Function to open the selected Route on the map
+    Future<void> searchRoute(Map<String, dynamic> data) async {
+      sharedPreferences.setString('source', data['sourceMeta']);
+      sharedPreferences.setString('destination', data['destinationMeta']);
+
+      LatLng source = LatLng(data['originLat'], data['originLng']);
+      LatLng destination =
+          LatLng(data['destinationLat'], data['destinationLng']);
+      Map modifiedResponse = await getDirectionsResponse(source, destination);
+
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (_) => MapOverview(modifiedResponse: modifiedResponse)));
+    }
+
     return StreamBuilder<QuerySnapshot>(
       stream: routes,
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -59,8 +80,9 @@ class RouteList extends StatelessWidget {
               }
             });
             return ListTile(
-                title: Text(data['name']),
-                subtitle: Text(data['startPoint'] + " - " + data['endPoint']),
+                title: Text(data['routeName']),
+                subtitle:
+                    Text(data['originName'] + " - " + data['destinationName']),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -86,7 +108,7 @@ class RouteList extends StatelessWidget {
                   ],
                 ),
                 onTap: () {
-                  //debugPrint("ID: ${document.reference.id}");
+                  searchRoute(data);
                 });
           }).toList(),
         );

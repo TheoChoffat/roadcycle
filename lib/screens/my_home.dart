@@ -1,15 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
 import 'package:roadcycle/utility/AppColors.dart';
 import 'package:roadcycle/utility/BottomNavigation.dart';
 import 'package:roadcycle/utility/RouteList.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../main.dart';
-import 'map/display/map_overview.dart';
-import 'map/services/api_manager.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -126,49 +120,10 @@ class _MyHomeState extends State<MyHome> {
                   ),
                 ),
               ),
-              // Expanded(
-              //     child: RouteList(
-              //   routes: _routes,
-              // )),
               Expanded(
-                child: StreamBuilder<QuerySnapshot>(
-                  stream: _routes,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasError) {
-                      return Text(AppLocalizations.of(context)!.somethingWrong);
-                    }
-
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                    return ListView(
-                      children:
-                          snapshot.data!.docs.map((DocumentSnapshot document) {
-                        Map<String, dynamic> data =
-                            document.data()! as Map<String, dynamic>;
-                        return ListTile(
-                          title: Text(data['routeName']),
-                          subtitle: Text(data['originName'] +
-                              " - " +
-                              data['destinationName']),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                  onPressed: () =>
-                                      removeFavourite(document.reference.id),
-                                  icon: const Icon(Icons.favorite_border)),
-                            ],
-                          ),
-                          onTap: () {
-                            searchRoute(data);
-                          },
-                        );
-                      }).toList(),
-                    );
-                  },
-                ),
-              ),
+                  child: RouteList(
+                routes: _routes,
+              )),
             ],
           ),
         ],
@@ -185,20 +140,4 @@ class _MyHomeState extends State<MyHome> {
 
   final Stream<QuerySnapshot> _routes =
       FirebaseFirestore.instance.collection('route').limit(4).snapshots();
-
-        Future<void> searchRoute(Map<String, dynamic> data) async {
-    sharedPreferences.setString('source', data['sourceMeta']);
-    sharedPreferences.setString('destination', data['destinationMeta']);
-
-    LatLng source = LatLng(data['originLat'], data['originLng']);
-    LatLng destination = LatLng(data['destinationLat'], data['destinationLng']);
-    Map modifiedResponse = await getDirectionsResponse(source, destination);
-
-    print(modifiedResponse);
-    // ignore: use_build_context_synchronously
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) => MapOverview(modifiedResponse: modifiedResponse)));
-  }
 }
