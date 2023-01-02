@@ -1,8 +1,12 @@
+import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:roadcycle/main.dart';
 
 import '../../../utility/AppColors.dart';
 import '../../auth/utils.dart';
 import '../setup/shared_prefs.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 // Display the information about the route
 Widget routeInfo(BuildContext context, String distance,
@@ -42,7 +46,10 @@ Widget routeInfo(BuildContext context, String distance,
                 ),
                 isAdmin
                     ? ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+                          await saveData(distance, durationFormatted, ascent,
+                              descent, sourceAddress, destinationAddress);
+                        },
                         style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.all(20),
                             backgroundColor: AppColors.main.orange),
@@ -57,4 +64,39 @@ Widget routeInfo(BuildContext context, String distance,
       ),
     ),
   );
+}
+
+Future<void> saveData(String distance, String durationFormatted, String ascent,
+    String descent, String sourceAdd, String destinationAdd) async {
+  String userId = FirebaseAuth.instance.currentUser!.uid;
+  String routeName = "$sourceAdd -> $destinationAdd";
+
+  final routeToSave = {
+    "destinationLat":
+        (json.decode(sharedPreferences.getString('destination')!)['location']
+            ['coordinates'][0]),
+    "destinationLng":
+        (json.decode(sharedPreferences.getString('destination')!)['location']
+            ['coordinates'][1]),
+    "destinationMeta":
+        (json.decode(sharedPreferences.getString('destination')!)),
+    "destinationName": destinationAdd,
+    "distance": double.parse(distance),
+    "duration": durationFormatted,
+    "idAdmin": userId,
+    "maxElevation": double.parse(ascent),
+    "minElevation": double.parse(descent),
+    "originLat":
+        (json.decode(sharedPreferences.getString('source')!)['location']
+            ['coordinates'][0]),
+    "originLng":
+        (json.decode(sharedPreferences.getString('source')!)['location']
+            ['coordinates'][1]),
+    "originName": sourceAdd,
+    "routeName": routeName,
+    "sourceMeta": (json.decode(sharedPreferences.getString('source')!)),
+  };
+
+  final databaseReference = FirebaseFirestore.instance.collection("route");
+  await databaseReference.add(routeToSave);
 }

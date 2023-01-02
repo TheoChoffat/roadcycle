@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,8 +42,12 @@ class RouteList extends StatelessWidget {
   Widget build(BuildContext context) {
     //Function to open the selected Route on the map
     Future<void> searchRoute(Map<String, dynamic> data) async {
-      sharedPreferences.setString('source', data['sourceMeta']);
-      sharedPreferences.setString('destination', data['destinationMeta']);
+      Map<String, dynamic> srcMeta = data['sourceMeta'];
+      String sourceString = json.encode(srcMeta);
+      Map<String, dynamic> dstMeta = data['destinationMeta'];
+      String destinationString = json.encode(dstMeta);
+      sharedPreferences.setString('source', sourceString);
+      sharedPreferences.setString('destination', destinationString);
 
       LatLng source = LatLng(data['originLat'], data['originLng']);
       LatLng destination =

@@ -101,6 +101,7 @@ class _MyHomeState extends State<MyHome> {
                     bottomRight: Radius.elliptical(18, 18),
                   ),
                 ),
+
                 child: const Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -117,13 +118,15 @@ class _MyHomeState extends State<MyHome> {
                     'Start a new route right now !',
                     style:
                         TextStyle(fontSize: 24, color: AppColors.main.orange),
-                  ),
-                ),
-              ),
+                  ), 
+                ), 
+              ), 
               Expanded(
                   child: RouteList(
                 routes: _routes,
-              )),
+              ),                
+              ),
+              
             ],
           ),
         ],

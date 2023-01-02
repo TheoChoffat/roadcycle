@@ -137,7 +137,7 @@ class _MapOverviewState extends State<MapOverview> {
   void initState() {
     super.initState();
     _mapController = MapController();
-        setMarkers();
+    setMarkers();
 
     _calculateValues();
     drawLines();
@@ -165,10 +165,8 @@ class _MapOverviewState extends State<MapOverview> {
         child: Stack(
           children: [
             FlutterMap(
-                            mapController: _mapController,
-
+              mapController: _mapController,
               options: MapOptions(
-
                 maxBounds: LatLngBounds(
                   LatLng(44.5, 5),
                   LatLng(48.8, 12),
@@ -247,18 +245,6 @@ class _MapOverviewState extends State<MapOverview> {
     descent = (widget.modifiedResponse['descent']).toString();
     mid = getCenterRoute(sourceLocationList[0], sourceLocationList[1],
         destinationLocationList[0], destinationLocationList[1]);
-
-    //DATA to save
-    // print(getPlacesStored('source'));
-    // print(json.decode(sharedPreferences.getString('source')!));
-    // print(json.decode(sharedPreferences.getString('destination')!));
-    // print(json.decode(sharedPreferences.getString('source')!)['location']['coordinates']);
-    // print(getPlacesStored('destination'));
-    // print(json.decode(sharedPreferences.getString('destination')!)['location']['coordinates']);
-    // print(distance);
-    // print(durationFormatted);
-    // print(descent);
-    // print(ascent);
   }
 
   fitBounds() {
@@ -268,7 +254,6 @@ class _MapOverviewState extends State<MapOverview> {
           LatLng(maxLng, maxLat),
         ),
         options: const FitBoundsOptions(
-          
             padding: EdgeInsets.fromLTRB(10, 150, 10, 210)));
     _mapController.move(centerZoom.center, centerZoom.zoom);
   }
