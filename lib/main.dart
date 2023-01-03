@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:roadcycle/screens/all_routes.dart';
 import 'package:roadcycle/screens/auth/Login.dart';
 import 'package:roadcycle/screens/auth/Register.dart';
+import 'package:roadcycle/screens/myFavorites.dart';
 import 'package:roadcycle/screens/auth/forgot_password_page.dart';
 import 'package:roadcycle/screens/my_settings.dart';
 import 'package:roadcycle/screens/my_routes.dart';
@@ -64,6 +65,9 @@ class MyApp extends StatelessWidget {
           case "/register":
             return MaterialPageRoute(
                 builder: (context) => const RegisterWidget());
+          case "/favorites":
+            return MaterialPageRoute(
+                builder: (context) => const FavoritesWidget());
           default:
             return MaterialPageRoute(builder: (context) => const AppStart());
         }

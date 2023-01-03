@@ -14,6 +14,40 @@ class MyRoutes extends StatefulWidget {
 }
 
 class _MyRoutesState extends State<MyRoutes> {
+  TextEditingController nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    nameController.dispose();
+
+    super.dispose();
+  }
+
+  Future openEditDialog(String id) => showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+            title: const Text("New Route name"),
+            content: TextField(
+              autofocus: true,
+              decoration: const InputDecoration(hintText: "Enter the new name"),
+              controller: nameController,
+            ),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    if (nameController.text.isNotEmpty) {
+                      FirebaseFirestore.instance
+                          .collection('route')
+                          .doc(id)
+                          .update({'routeName': nameController.text.trim()});
+                      Navigator.of(context).pop();
+                      nameController.text = "";
+                    }
+                  },
+                  child: const Text("Save name"))
+            ],
+          ));
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,12 +70,17 @@ class _MyRoutesState extends State<MyRoutes> {
               Map<String, dynamic> data =
                   document.data()! as Map<String, dynamic>;
               return ListTile(
-                title: Text(data['name']),
-                subtitle: Text(data['startPoint'] + " - " + data['endPoint']),
+                title: Text(data['routeName']),
+                subtitle:
+                    Text(data['originName'] + " - " + data['destinationName']),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    IconButton(onPressed: () {}, icon: const Icon(Icons.edit)),
+                    IconButton(
+                        onPressed: () {
+                          openEditDialog(document.reference.id);
+                        },
+                        icon: const Icon(Icons.edit)),
                     IconButton(
                         onPressed: () {
                           showAlertDialog(context, document.reference.id);

@@ -27,7 +27,7 @@ class BottomNavigation extends StatelessWidget {
               tooltip: 'Favourites',
               icon: const Icon(Icons.favorite),
               onPressed: () {
-                Navigator.of(context).pushNamed("/all_routes");
+                Navigator.of(context).pushNamed("/favorites");
               },
             ),
             const Spacer(),

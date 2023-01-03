@@ -128,7 +128,7 @@ class _MapDefaultState extends State<MapDefault> {
                                     builder: (_) => const PrepareRoute())),
                             style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.all(20),
-                                primary: AppColors.main.orange),
+                                backgroundColor: AppColors.main.orange),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: const [
