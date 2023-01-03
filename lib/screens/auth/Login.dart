@@ -152,6 +152,18 @@ class _LoginWidgetState extends State<LoginWidget> {
                           ),
                         ),
                         const SizedBox(height: 24),
+                        GestureDetector(
+                          child: Text(
+                            AppLocalizations.of(context)!.forgotPassword,
+                            style: const TextStyle(
+                              decoration: TextDecoration.underline,
+                              color: Colors.blue,
+                              fontSize: 20,
+                            ),
+                          ),
+                          onTap: () => Navigator.of(context)
+                              .pushNamed("/forgot_password_page"),
+                        ),
                         RichText(
                           text: TextSpan(
                               style: const TextStyle(
