@@ -23,5 +23,6 @@
     "passwordEnter" : "Enter Password",
     "passwordEnterError" : "Enter min. 6 Characters",
     "alreadyAccount" : "Already have an Account? ",
-    "register" : "Register"
+    "register" : "Register",
+    "forgotPassword" : "Forgot Password"
 }

@@ -23,5 +23,6 @@
     "passwordEnter" : "Passwort",
     "passwordEnterError" : "Mindestens 6 Zeichen",
     "alreadyAccount" : "Bereits registriert? ",
-    "register" : "Registrieren"
+    "register" : "Registrieren",
+    "forgotPassword" : "Passwort vergessen"
 }
