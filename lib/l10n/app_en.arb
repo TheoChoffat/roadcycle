@@ -1,5 +1,6 @@
 {
-    "language" : "English",
+    "languageName" : "English",
+    "language" : "Language",
     "allRoutes" : "All Routes",
     "somethingWrong": "Something went wrong!",
     "myRoutes" : "My Routes",
@@ -24,5 +25,22 @@
     "passwordEnterError" : "Enter min. 6 Characters",
     "alreadyAccount" : "Already have an Account? ",
     "register" : "Register",
-    "forgotPassword" : "Forgot Password"
+    "forgotPassword" : "Forgot Password?",
+    "resetPassword" : "Reset Password",
+    "resetPasswordText" : "Enter your Email to reset your Password",
+    "yourPosition" : "Your Position: ",
+    "unknown" : "Unknown",
+    "newRoute" : "Create new Route",
+    "enterPlace" : "Enter Place",
+    "whereTo" : "Where To?",
+    "whereFrom" : "Where From?",
+    "calculateRoute" : "Calculate Route",
+    "information" : "Information",
+    "distance" : "Distance: ",
+    "time" : "Time: ",
+    "elevation" : "Elevation: ",
+    "saveRoute" : "Save Route",
+    "favoriteRoute" : "Favorite Routes",
+    "startNewRoute" : "Start a new Route right now!"
+
 }

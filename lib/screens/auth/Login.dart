@@ -44,7 +44,6 @@ class _LoginWidgetState extends State<LoginWidget> {
       isAdmin = isAdminChecked;
 
       if (isAdmin == true) {
-        //Change after to
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushNamed("/my_routes");
       } else {
@@ -158,7 +157,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             style: const TextStyle(
                               decoration: TextDecoration.underline,
                               color: Colors.blue,
-                              fontSize: 20,
+                              fontSize: 16,
                             ),
                           ),
                           onTap: () => Navigator.of(context)

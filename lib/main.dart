@@ -27,14 +27,28 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale? _locale;
+
+  void setLocale(Locale locale) {
+    setState(() {
+      _locale = locale;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       scaffoldMessengerKey: Utils.messengerKey,
       supportedLocales: L10n.all,
+      locale: _locale,
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
@@ -48,7 +62,8 @@ class MyApp extends StatelessWidget {
           case "/all_routes":
             return MaterialPageRoute(builder: (context) => const AllRoutes());
           case "/my_settings":
-            return MaterialPageRoute(builder: (context) => const MySettings());
+            return MaterialPageRoute(
+                builder: (context) => MySettings(setLocale));
           case "/my_routes":
             return MaterialPageRoute(builder: (context) => const MyRoutes());
           case "/app_start":

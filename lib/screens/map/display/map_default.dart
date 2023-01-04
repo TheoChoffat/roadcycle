@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
@@ -117,8 +118,13 @@ class _MapDefaultState extends State<MapDefault> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           const SizedBox(height: 20),
-                          const Text('Your position:'),
-                          Text(allowed ? currentAddress : "Unknown",
+                          Text(
+                            AppLocalizations.of(context)!.yourPosition,
+                          ),
+                          Text(
+                              allowed
+                                  ? currentAddress
+                                  : AppLocalizations.of(context)!.unknown,
                               style: TextStyle(color: AppColors.main.orange)),
                           const SizedBox(height: 20),
                           ElevatedButton(
@@ -131,8 +137,8 @@ class _MapDefaultState extends State<MapDefault> {
                                 backgroundColor: AppColors.main.orange),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text('Create new route'),
+                              children: [
+                                Text(AppLocalizations.of(context)!.newRoute),
                               ],
                             ),
                           ),

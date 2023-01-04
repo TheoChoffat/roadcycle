@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:roadcycle/utility/AppColors.dart';
 import 'package:roadcycle/utility/BottomNavigation.dart';
 import 'package:roadcycle/utility/RouteList.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -101,7 +102,6 @@ class _MyHomeState extends State<MyHome> {
                     bottomRight: Radius.elliptical(18, 18),
                   ),
                 ),
-
                 child: const Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -115,18 +115,17 @@ class _MyHomeState extends State<MyHome> {
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Start a new route right now !',
+                    AppLocalizations.of(context)!.startNewRoute,
                     style:
                         TextStyle(fontSize: 24, color: AppColors.main.orange),
-                  ), 
-                ), 
-              ), 
-              Expanded(
-                  child: RouteList(
-                routes: _routes,
-              ),                
+                  ),
+                ),
               ),
-              
+              Expanded(
+                child: RouteList(
+                  routes: _routes,
+                ),
+              ),
             ],
           ),
         ],

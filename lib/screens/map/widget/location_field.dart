@@ -11,6 +11,7 @@ import '../../../main.dart';
 import '../display/route_preparation.dart';
 import '../services/api_manager.dart';
 import '../setup/shared_prefs.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // Class that handled the user's input
 class LocationField extends StatefulWidget {
@@ -79,14 +80,14 @@ class _LocationFieldState extends State<LocationField> {
         placeholderText =
             json.decode(sharedPreferences.getString('source')!)['name'];
       } else {
-        placeholderText = 'Where to?';
+        placeholderText = AppLocalizations.of(context)!.whereTo;
       }
     } else {
       if (sharedPreferences.getString('destination') != null) {
         placeholderText =
             json.decode(sharedPreferences.getString('destination')!)['name'];
       } else {
-        placeholderText = 'Where from?';
+        placeholderText = AppLocalizations.of(context)!.whereFrom;
       }
     }
     IconData? iconData = position

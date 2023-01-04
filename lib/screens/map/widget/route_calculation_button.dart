@@ -4,6 +4,7 @@ import '../../../utility/AppColors.dart';
 import '../display/map_overview.dart';
 import '../services/api_manager.dart';
 import '../setup/shared_prefs.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // Button that executes the creation od the route
 Widget routeCalculation(BuildContext context) {
@@ -23,5 +24,5 @@ Widget routeCalculation(BuildContext context) {
                     MapOverview(modifiedResponse: modifiedResponse)));
       },
       backgroundColor: AppColors.main.orange,
-      label: const Text('Calculate route'));
+      label: Text(AppLocalizations.of(context)!.calculateRoute));
 }

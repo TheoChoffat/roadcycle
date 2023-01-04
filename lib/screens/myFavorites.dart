@@ -13,6 +13,7 @@ import '../utility/BottomNavigation.dart';
 import '../utility/RouteList.dart';
 import 'map/display/map_overview.dart';
 import 'map/services/api_manager.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FavoritesWidget extends StatefulWidget {
   const FavoritesWidget({super.key});
@@ -46,7 +47,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Favorite Routes"),
+        title: Text(AppLocalizations.of(context)!.favoriteRoute),
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.main.orange,
       ),

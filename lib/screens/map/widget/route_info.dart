@@ -7,6 +7,7 @@ import '../../../utility/AppColors.dart';
 import '../../auth/utils.dart';
 import '../setup/shared_prefs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // Display the information about the route
 Widget routeInfo(BuildContext context, String distance,
@@ -37,11 +38,11 @@ Widget routeInfo(BuildContext context, String distance,
                   child: ListTile(
                     tileColor: Colors.grey[200],
                     leading: const Icon(Icons.pedal_bike),
-                    title: const Text('Information',
-                        style: TextStyle(
+                    title: Text(AppLocalizations.of(context)!.information,
+                        style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                     subtitle: Text(
-                        'Distance: $distance km | Time: $durationFormatted | Elevation: +$ascent m -$descent m'),
+                        '${AppLocalizations.of(context)!.distance}$distance km |${AppLocalizations.of(context)!.time}$durationFormatted |${AppLocalizations.of(context)!.elevation}$ascent m -$descent m'),
                   ),
                 ),
                 isAdmin
@@ -55,10 +56,10 @@ Widget routeInfo(BuildContext context, String distance,
                             backgroundColor: AppColors.main.orange),
                         child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Text('Save route'),
+                            children: [
+                              Text(AppLocalizations.of(context)!.saveRoute),
                             ]))
-                    : Text(""),
+                    : const Text(""),
               ]),
         ),
       ),
