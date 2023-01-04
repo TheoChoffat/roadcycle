@@ -105,8 +105,10 @@ class _MapDefaultState extends State<MapDefault> {
                       ],
                     )
                   : const MarkerLayer(),
-              Positioned(
-                bottom: 0,
+            ],
+          ),
+          Positioned(
+                 bottom: 0,
                 child: SizedBox(
                   width: MediaQuery.of(context).size.width,
                   child: Card(
@@ -149,7 +151,7 @@ class _MapDefaultState extends State<MapDefault> {
                 ),
               ),
               Positioned(
-                bottom: 150,
+                bottom: 200,
                 right: 0,
                 child: IconButton(
                     onPressed: _resetTiles,
@@ -157,8 +159,6 @@ class _MapDefaultState extends State<MapDefault> {
                     iconSize: 50,
                     color: AppColors.main.orange),
               ),
-            ],
-          ),
         ],
       ),
     );
