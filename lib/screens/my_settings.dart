@@ -1,11 +1,9 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 
-import '../main.dart';
 import '../utility/AppColors.dart';
 import '../utility/BottomNavigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:get/get.dart';
 
 class MySettings extends StatefulWidget {
   const MySettings(this.setLocale, {Key? key}) : super(key: key);
