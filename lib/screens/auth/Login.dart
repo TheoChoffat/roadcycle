@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utility/AppColors.dart';
 import 'utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -42,6 +43,9 @@ class _LoginWidgetState extends State<LoginWidget> {
       });
 
       isAdmin = isAdminChecked;
+
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('isAdmin', isAdmin);
 
       if (isAdmin == true) {
         // ignore: use_build_context_synchronously

@@ -55,7 +55,8 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      title: 'Flutter Demo',
+      home: AuthUtils.checkLoginState(context),
+      title: 'Roadcycle',
       theme: ThemeData(primarySwatch: Colors.blue),
       onGenerateRoute: (settings) {
         switch (settings.name) {
@@ -84,7 +85,8 @@ class _MyAppState extends State<MyApp> {
             return MaterialPageRoute(
                 builder: (context) => const FavoritesWidget());
           default:
-            return MaterialPageRoute(builder: (context) => const AppStart());
+            //return MaterialPageRoute(builder: (context) => const AppStart());
+            return null;
         }
       },
     );

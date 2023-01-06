@@ -10,7 +10,7 @@ class AppColors {
 }
 
 class _Main {
-  Color orange = const Color(0xffef4f19);
+  Color orange = Color.fromRGBO(239, 79, 25, 1);
   Color white = const Color(0xfffbf8f7);
 }
 
