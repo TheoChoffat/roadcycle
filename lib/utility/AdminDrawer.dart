@@ -34,7 +34,7 @@ class DrawerWidget extends StatelessWidget {
           onTap: () {
             FirebaseAuth.instance.signOut();
             isAdmin = false;
-            Navigator.of(context).pushNamed("");
+            Navigator.of(context).pushNamed("/start");
           },
         ),
       ],

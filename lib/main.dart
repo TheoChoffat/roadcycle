@@ -84,8 +84,9 @@ class _MyAppState extends State<MyApp> {
           case "/favorites":
             return MaterialPageRoute(
                 builder: (context) => const FavoritesWidget());
+          case "/start":
+            return MaterialPageRoute(builder: (context) => const AppStart());
           default:
-            //return MaterialPageRoute(builder: (context) => const AppStart());
             return null;
         }
       },

@@ -18,6 +18,95 @@ class AllRoutes extends StatefulWidget {
 }
 
 class _AllRoutesState extends State<AllRoutes> {
+  Stream<QuerySnapshot> _routes = FirebaseFirestore.instance
+      .collection('route')
+      .orderBy("distance", descending: false)
+      .snapshots();
+
+  void changeSort() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text(AppLocalizations.of(context)!.sort),
+              content: SizedBox(
+                height: 220,
+                width: double.minPositive,
+                child: ListView(
+                  children: [
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortName),
+                          Icon(Icons.arrow_downward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          _routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("routeName", descending: false)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortName),
+                          Icon(Icons.arrow_upward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          _routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("routeName", descending: true)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortDistance),
+                          Icon(Icons.arrow_downward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          _routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("distance", descending: false)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortDistance),
+                          Icon(Icons.arrow_upward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          _routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("distance", descending: true)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +114,14 @@ class _AllRoutesState extends State<AllRoutes> {
         title: Text(AppLocalizations.of(context)!.allRoutes),
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.main.orange,
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.filter_list,
+                color: Colors.white,
+              ),
+              onPressed: () => changeSort())
+        ],
       ),
       body: RouteList(
         routes: _routes,
@@ -38,7 +135,4 @@ class _AllRoutesState extends State<AllRoutes> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
-
-  final Stream<QuerySnapshot> _routes =
-      FirebaseFirestore.instance.collection('route').snapshots();
 }

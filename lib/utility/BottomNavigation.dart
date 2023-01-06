@@ -46,7 +46,7 @@ class BottomNavigation extends StatelessWidget {
               icon: const Icon(Icons.logout),
               onPressed: () {
                 FirebaseAuth.instance.signOut();
-                Navigator.of(context).pushNamed("");
+                Navigator.of(context).pushNamed("/start");
               },
             ),
             const Spacer(),

@@ -41,5 +41,8 @@
     "elevation" : "Höhenunterschied: ",
     "saveRoute" : "Route speichern",
     "favoriteRoute" : "Favoriten",
-    "startNewRoute" : "Starten Sie jetzt eine neue Route!"
+    "startNewRoute" : "Starten Sie jetzt eine neue Route!",
+    "sort" : "Sortieren nach",
+    "sortName" : "Name",
+    "sortDistance" : "Distanz"
 }
