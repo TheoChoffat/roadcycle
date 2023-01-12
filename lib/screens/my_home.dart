@@ -142,8 +142,8 @@ class _MyHomeState extends State<MyHome> {
                                                 "${favorites.length}" +
                                                 AppLocalizations.of(context)!
                                                     .homePageInformationTextThree,
-                                            style: GoogleFonts.permanentMarker(
-                                                fontSize: 17,
+                                            style: TextStyle(
+                                                fontSize: 16,
                                                 color: Colors.white)),
                                       );
                                     } else {
@@ -184,7 +184,7 @@ class _MyHomeState extends State<MyHome> {
       ),
       bottomNavigationBar: const BottomNavigation(),
       floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.of(context).pushNamed("/my_home"),
+        onPressed: () => {},
         backgroundColor: AppColors.main.orange,
         child: const Icon(Icons.directions_bike),
       ),

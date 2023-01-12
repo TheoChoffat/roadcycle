@@ -100,8 +100,8 @@ class _AllRoutesState extends State<AllRoutes> {
                               .orderBy("distance", descending: true)
                               .snapshots();
                         }),
-                        Navigator.of(context).pop(), 
-                      }, 
+                        Navigator.of(context).pop(),
+                      },
                     ),
                   ],
                 ),
@@ -164,7 +164,7 @@ class _AllRoutesState extends State<AllRoutes> {
                 icon: const Icon(Icons.logout),
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushNamed("");
+                  Navigator.of(context).pushNamed("/app_start");
                 },
               ),
               const Spacer(),

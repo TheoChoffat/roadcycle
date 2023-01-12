@@ -17,24 +17,15 @@ class DrawerWidget extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.route),
           title: Text(AppLocalizations.of(context)!.myRoutes),
-          onTap: () {
-            Navigator.of(context).pushNamed("/my_routes");
-          },
+          onTap: () {},
         ),
-        /*ListTile(
-          leading: const Icon(Icons.settings),
-          title: const Text('Settings'),
-          onTap: () {
-            Navigator.of(context).pushNamed("/my_settings");
-          },
-        ),*/
         ListTile(
           leading: const Icon(Icons.logout),
           title: Text(AppLocalizations.of(context)!.logout),
           onTap: () {
             FirebaseAuth.instance.signOut();
             isAdmin = false;
-            Navigator.of(context).pushNamed("/start");
+            Navigator.of(context).pushNamed("/app_start");
           },
         ),
       ],

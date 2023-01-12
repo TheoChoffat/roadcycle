@@ -178,7 +178,7 @@ class _MySettingsState extends State<MySettings> {
                 icon: const Icon(Icons.logout),
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushNamed("");
+                  Navigator.of(context).pushNamed("/app_start");
                 },
               ),
               const Spacer(),

@@ -227,7 +227,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                 icon: const Icon(Icons.logout),
                 onPressed: () {
                   FirebaseAuth.instance.signOut();
-                  Navigator.of(context).pushNamed("");
+                  Navigator.of(context).pushNamed("/app_start");
                 },
               ),
               const Spacer(),
@@ -249,17 +249,17 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
 
   //Get the data and get the route and open it on the map
   Future<void> searchRoute(Map<String, dynamic> data) async {
-        sharedPreferences.setBool('exist', false);
+    sharedPreferences.setBool('exist', false);
     sharedPreferences.setString('source', json.encode(data['sourceMeta']));
     sharedPreferences.setString(
         'destination', json.encode(data['destinationMeta']));
-        print((sharedPreferences.getString('destination')));
-                print(sharedPreferences.getString('source'));
+    print((sharedPreferences.getString('destination')));
+    print(sharedPreferences.getString('source'));
 
     LatLng sourceLatLng = getRouteLatLngStored('source');
     LatLng destinationLatLng = getRouteLatLngStored('destination');
 
-     print(sourceLatLng);
+    print(sourceLatLng);
     print(destinationLatLng);
     Map modifiedResponse =
         await getDirectionsResponse(sourceLatLng, destinationLatLng);
