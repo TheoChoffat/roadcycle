@@ -57,7 +57,7 @@
     "copyrightTitle" : "Copyright",
     "aboutContent" : "Welcome to RoadCycle, the ultimate app for bikers. Our mission is to help cyclists discover new routes, plan their adventures, and share their experiences with others. With RoadCycle, you'll be able to find all the information you need, including distance, elevation, and more.\nOur app allows you to save your favorite routes and come back to them anytime. You can also share your routes with friends and family, so they can join you on your next ride.\nRoadCycle was created as a project class in the HES-SO Valais Wallis, our school. We're constantly working to improve RoadCycle and make it the best app for bikers. If you have any suggestions or feedback, please don't hesitate to contact us.\n\nHappy cycling!",
     "copyrightContent" : "Copyright ©2022 RoadCycle. All rights reserved.",
-    "homePageInformationTextOne" : "Unleash the adventurer within and discover new routes with RoadCycle, the ultimate app for bikers. Find all the information you need, including distance, elevation and more.\nRide your way through",
+    "homePageInformationTextOne" : "Unleash the adventurer within and discover new routes with RoadCycle, the ultimate app for bikers.\nRide your way through",
     "homePageInformationTextTwo" : " routes and ",
     "homePageInformationTextThree" : " of your favorites!"
 }
