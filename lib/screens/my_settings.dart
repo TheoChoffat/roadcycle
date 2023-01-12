@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../utility/AppColors.dart';
 import '../utility/BottomNavigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MySettings extends StatefulWidget {
   const MySettings(this.setLocale, {Key? key}) : super(key: key);
@@ -58,6 +59,37 @@ class _MySettingsState extends State<MySettings> {
         });
   }
 
+  //Show dialogue to change the language of the app
+  Future askAbout() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(AppLocalizations.of(context)!.aboutTitle),
+              content: SizedBox(
+                  height: 150,
+                  width: double.minPositive,
+                  child: SingleChildScrollView(
+                      child:
+                          Text(AppLocalizations.of(context)!.aboutContent))));
+        });
+  }
+
+  Future askCopyright() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(AppLocalizations.of(context)!.copyrightTitle),
+              content: SizedBox(
+                  height: 150,
+                  width: double.minPositive,
+                  child: SingleChildScrollView(
+                      child: Text(
+                          AppLocalizations.of(context)!.copyrightContent))));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -83,10 +115,77 @@ class _MySettingsState extends State<MySettings> {
               ],
             ),
             onTap: askLanguage,
-          )
+          ),
+          ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.aboutTitle,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+            onTap: askAbout,
+          ),
+          ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.copyrightTitle,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+            onTap: askCopyright,
+          ),
         ],
       ),
-      bottomNavigationBar: const BottomNavigation(),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: IconTheme(
+          data: const IconThemeData(color: Colors.black),
+          child: Row(
+            children: <Widget>[
+              const Spacer(),
+              IconButton(
+                tooltip: 'All Routes',
+                icon: const Icon(Icons.route),
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/all_routes");
+                },
+              ),
+              const Spacer(),
+              IconButton(
+                tooltip: 'Favourites',
+                icon: const Icon(Icons.favorite),
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/favorites");
+                },
+              ),
+              const Spacer(),
+              const Spacer(),
+              const Spacer(),
+              IconButton(
+                tooltip: 'Settings',
+                icon: const Icon(Icons.settings, color: Colors.orange),
+                onPressed: () {},
+              ),
+              const Spacer(),
+              IconButton(
+                tooltip: 'Logout',
+                icon: const Icon(Icons.logout),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pushNamed("");
+                },
+              ),
+              const Spacer(),
+            ],
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).pushNamed("/my_home"),
         backgroundColor: AppColors.main.orange,

@@ -44,6 +44,20 @@
     "startNewRoute" : "Commencer une Course!",
     "sort" : "Trier Par",
     "sortName" : "Par Nom",
-    "sortDistance" : "Par Distance"
-
+    "sortDistance" : "Par Distance",
+    "welcome": "Bienvenue à Roadcycle",
+    "introText" : "Trouvez les meilleurs itinéraires cyclables en Suisse.",
+    "discover" : "Découvrer de nouveaux Itinéraires",
+    "discoverText" : "Notre équipe crée pour vous les plus beaux itinéraires cyclables.",
+    "likeRoutes" : "Aimer vos Itinéraires Préférés",
+    "likeRoutesText" : "Aimer vos itinéraires préférés pour les rendre plus faciles à trouver.",
+    "skip" : "Sauter",
+    "done" : "Conclure",
+    "aboutTitle" : "A propos",
+    "copyrightTitle" : "Droits d'auteur",
+    "aboutContent" : "Bienvenue sur RoadCycle, l'application ultime pour les cyclistes. Notre mission est de permettre aux cyclistes de découvrir de nouvelles routes, de planifier leurs aventures et de partager leurs expériences avec les autres. Avec RoadCycle, vous pourrez trouver toutes les informations dont vous avez besoin, notamment la distance, l'altitude et plus encore.\nNotre application vous permet de sauvegarder vos routes préférées et de les retrouver à tout moment. Vous pouvez également partager vos routes avec vos amis et votre famille, pour qu'ils vous rejoignent lors de votre prochaine sortie.\nRoadCycle a été créé pour un projet de classe à l'HES-SO Valais Wallis, notre école. Nous travaillons constamment à améliorer RoadCycle et à en faire la meilleure application pour les cyclistes. Si vous avez des suggestions ou des commentaires, n'hésitez pas à nous contacter.\n\nBonne randonnée à vélo!",
+    "copyrightContent" : "Copyright ©2022 RoadCycle. All rights reserved.",
+    "homePageInformationTextOne" : "Libérez l'aventurier qui est en vous et découvrez de nouvelles routes avec RoadCycle, l'application ultime pour les cyclistes. Trouvez toutes les informations dont vous avez besoin, notamment la distance, l'altitude et plus encore.\nParcourez",
+    "homePageInformationTextTwo" : " routes et ", 
+    "homePageInformationTextThree" : " de vos routes préférées !"
 }

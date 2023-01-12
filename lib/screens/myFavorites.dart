@@ -5,11 +5,9 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
-import '../main.dart';
 import '../utility/AppColors.dart';
+import '../main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../utility/BottomNavigation.dart';
 import '../utility/RouteList.dart';
 import 'map/display/map_overview.dart';
 import 'map/services/api_manager.dart';
@@ -192,7 +190,50 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
               }).toList(),
             );
           }),
-      bottomNavigationBar: const BottomNavigation(),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: IconTheme(
+          data: const IconThemeData(color: Colors.black),
+          child: Row(
+            children: <Widget>[
+              const Spacer(),
+              IconButton(
+                tooltip: 'All Routes',
+                icon: const Icon(Icons.route),
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/all_routes");
+                },
+              ),
+              const Spacer(),
+              IconButton(
+                tooltip: 'Favourites',
+                icon: const Icon(Icons.favorite, color: Colors.orange),
+                onPressed: () {},
+              ),
+              const Spacer(),
+              const Spacer(),
+              const Spacer(),
+              IconButton(
+                tooltip: 'Settings',
+                icon: const Icon(Icons.settings),
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/my_settings");
+                },
+              ),
+              const Spacer(),
+              IconButton(
+                tooltip: 'Logout',
+                icon: const Icon(Icons.logout),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pushNamed("");
+                },
+              ),
+              const Spacer(),
+            ],
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).pushNamed("/my_home"),
         backgroundColor: AppColors.main.orange,

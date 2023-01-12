@@ -5,6 +5,7 @@ import 'package:roadcycle/utility/AppColors.dart';
 import 'package:roadcycle/utility/BottomNavigation.dart';
 import 'package:roadcycle/utility/RouteList.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -12,6 +13,10 @@ class MyHome extends StatefulWidget {
   @override
   State<MyHome> createState() => _MyHomeState();
 }
+
+final DocumentReference _favorites = FirebaseFirestore.instance
+    .collection('user')
+    .doc(FirebaseAuth.instance.currentUser?.uid);
 
 class _MyHomeState extends State<MyHome> {
   @override
@@ -22,6 +27,7 @@ class _MyHomeState extends State<MyHome> {
           'assets/images/logo_roadcycle_orange.png',
           height: 20,
         ),
+        elevation: 0,
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.main.orange,
       ),
@@ -102,12 +108,58 @@ class _MyHomeState extends State<MyHome> {
                     bottomRight: Radius.elliptical(18, 18),
                   ),
                 ),
-                child: const Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    'This box may contain useful statistics about the user',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: FutureBuilder(
+                        future: FirebaseFirestore.instance
+                            .collection("route")
+                            .get(),
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            var routeCount = snapshot.data?.docs.length;
+                            return Column(
+                              children: <Widget>[
+                                StreamBuilder(
+                                  stream: _favorites.snapshots(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    if (snapshot.hasData &&
+                                        snapshot.data.data() != null) {
+                                      var favorites = snapshot.data
+                                          .data()['favorites'] as List;
+                                      return Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                    .homePageInformationTextOne +
+                                                " ${routeCount}" +
+                                                AppLocalizations.of(context)!
+                                                    .homePageInformationTextTwo +
+                                                "${favorites.length}" +
+                                                AppLocalizations.of(context)!
+                                                    .homePageInformationTextThree,
+                                            style: GoogleFonts.permanentMarker(
+                                                fontSize: 17,
+                                                color: Colors.white)),
+                                      );
+                                    } else {
+                                      return const CircularProgressIndicator();
+                                    }
+                                  },
+                                ),
+                              ],
+                            );
+                          } else {
+                            return const CircularProgressIndicator();
+                          }
+                        },
+                      ),
+                    ),
+                  ],
                 ),
               ),
               Container(
