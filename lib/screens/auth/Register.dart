@@ -48,7 +48,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       final json = {
         "firstname": firstnameController.text.trim(),
         "lastname": lastnameController.text.trim(),
-        "isAdmin": false
+        "isAdmin": false,
+        "favorites": []
       };
 
       await docUser.set(json);

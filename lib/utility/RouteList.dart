@@ -29,14 +29,14 @@ Future removeFavourite(String routeId) async {
   });
 }
 
-final DocumentReference _favorites = FirebaseFirestore.instance
-    .collection('user')
-    .doc(FirebaseAuth.instance.currentUser?.uid);
-
 class RouteList extends StatelessWidget {
-  const RouteList({super.key, required this.routes});
+  RouteList({super.key, required this.routes});
 
   final Stream<QuerySnapshot> routes;
+
+  final DocumentReference _favorites = FirebaseFirestore.instance
+      .collection('user')
+      .doc(FirebaseAuth.instance.currentUser?.uid);
 
   @override
   Widget build(BuildContext context) {
