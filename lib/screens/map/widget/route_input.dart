@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'location_field.dart';
 
+//Display the cards from the user input
 Widget inputCard(TextEditingController sourceController, TextEditingController destinationController) {
     return Card(
     elevation: 5,
