@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 import '../utility/AppColors.dart';
-import '../utility/BottomNavigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

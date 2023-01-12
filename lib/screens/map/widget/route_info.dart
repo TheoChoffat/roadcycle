@@ -16,7 +16,8 @@ Widget routeInfo(BuildContext context, String distance,
   String sourceAddress = getPlacesStored('source');
   String destinationAddress = getPlacesStored('destination');
   bool isExist = sharedPreferences.getBool('exist')!;
-  if (isExist == null){
+  // ignore: unnecessary_null_comparison
+  if (isExist == null) {
     isExist == false;
   }
 
@@ -50,27 +51,35 @@ Widget routeInfo(BuildContext context, String distance,
                   ),
                 ),
                 isAdmin
-                    ? !isExist ? ElevatedButton(
-                        onPressed: () async {
-                          await saveData(distance, durationFormatted, ascent,
-                              descent, sourceAddress, destinationAddress);
+                    ? !isExist
+                        ? ElevatedButton(
+                            onPressed: () async {
+                              await saveData(
+                                  distance,
+                                  durationFormatted,
+                                  ascent,
+                                  descent,
+                                  sourceAddress,
+                                  destinationAddress);
                               Navigator.of(context).pushNamed("/my_routes");
-                        },
-                        style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.all(20),
-                            backgroundColor: AppColors.main.orange),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(AppLocalizations.of(context)!.saveRoute),
-                            ]))
-                    : const Text("") : const Text(""),
+                            },
+                            style: ElevatedButton.styleFrom(
+                                padding: const EdgeInsets.all(20),
+                                backgroundColor: AppColors.main.orange),
+                            child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(AppLocalizations.of(context)!.saveRoute),
+                                ]))
+                        : const Text("")
+                    : const Text(""),
               ]),
         ),
       ),
     ),
   );
 }
+
 //Save the route
 Future<void> saveData(String distance, String durationFormatted, String ascent,
     String descent, String sourceAdd, String destinationAdd) async {

@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:flutter_map/plugin_api.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:location/location.dart';
 
 import '../../../main.dart';
 import '../../../utility/AppColors.dart';
@@ -26,8 +25,6 @@ class MapOverview extends StatefulWidget {
 class _MapOverviewState extends State<MapOverview> {
   late ElevationPoint? hoverPoint;
 
-  LocationData? _currentLocation;
-  late List<LatLng> _polylinePoints;
   final List<LatLng> polyPoints = [];
   final Set<Polyline> polyLines = {};
   late List<Marker> _markers = [];

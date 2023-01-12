@@ -9,7 +9,6 @@ import 'package:roadcycle/utility/AppColors.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:roadcycle/utility/RouteList.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import '../utility/BottomNavigation.dart';
 
 class AllRoutes extends StatefulWidget {
   const AllRoutes({super.key});
