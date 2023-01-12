@@ -71,7 +71,7 @@ Widget routeInfo(BuildContext context, String distance,
     ),
   );
 }
-
+//Save the route
 Future<void> saveData(String distance, String durationFormatted, String ascent,
     String descent, String sourceAdd, String destinationAdd) async {
   String userId = FirebaseAuth.instance.currentUser!.uid;
