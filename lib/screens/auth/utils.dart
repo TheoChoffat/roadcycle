@@ -24,6 +24,7 @@ class Utils {
 bool isAdmin = false;
 
 class AuthUtils {
+  //Check if the user is already logged in
   static checkLoginState(context, bool? firstTime) {
     return Scaffold(
       body: StreamBuilder<User?>(
@@ -52,6 +53,7 @@ class AuthUtils {
                 },
               );
             } else {
+              //Check if it's the first time, the user opens the app
               if (firstTime == null) {
                 return IntroScreen();
               }

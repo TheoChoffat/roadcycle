@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:roadcycle/utility/AppColors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -11,7 +12,7 @@ class IntroScreen extends StatefulWidget {
 class _IntroScreenState extends State<IntroScreen> {
   final _introKey = GlobalKey<IntroductionScreenState>();
 
-  //
+  //Saves that the user has already seen the introduction
   Future<void> saveDone() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.setBool("firstTime", false);
@@ -29,14 +30,14 @@ class _IntroScreenState extends State<IntroScreen> {
             SizedBox(
               height: 40,
             ),
-            Text("Welcome to Roadcycle",
+            Text(AppLocalizations.of(context)!.welcome,
                 style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic)),
           ]),
           bodyWidget: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Find the best cycling routes throughout Switzerland."),
+              Text(AppLocalizations.of(context)!.introText),
               SizedBox(
                 height: 100,
               ),
@@ -49,14 +50,14 @@ class _IntroScreenState extends State<IntroScreen> {
             SizedBox(
               height: 40,
             ),
-            Text("Discover new Routes",
+            Text(AppLocalizations.of(context)!.discover,
                 style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic)),
           ]),
           bodyWidget: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Find the best cycling routes throughout Switzerland."),
+              Text(AppLocalizations.of(context)!.discoverText),
               Image.asset(
                 'assets/images/IntroRoute.PNG',
                 height: 500,
@@ -69,14 +70,14 @@ class _IntroScreenState extends State<IntroScreen> {
             SizedBox(
               height: 40,
             ),
-            Text("Like your Favorite Routes",
+            Text(AppLocalizations.of(context)!.likeRoutes,
                 style: TextStyle(fontSize: 30, fontStyle: FontStyle.italic)),
           ]),
           bodyWidget: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text("Find the best cycling routes throughout Switzerland."),
+              Text(AppLocalizations.of(context)!.likeRoutesText),
               SizedBox(
                 height: 80,
               ),
@@ -94,11 +95,11 @@ class _IntroScreenState extends State<IntroScreen> {
       showNextButton: true,
       showDoneButton: true,
       showSkipButton: true,
-      skip: Text('Skip',
+      skip: Text(AppLocalizations.of(context)!.skip,
           style: TextStyle(
               fontWeight: FontWeight.w600, color: AppColors.main.orange)),
       next: Icon(Icons.arrow_forward, color: AppColors.main.orange),
-      done: Text('Done',
+      done: Text(AppLocalizations.of(context)!.done,
           style: TextStyle(
               fontWeight: FontWeight.w600, color: AppColors.main.orange)),
     );

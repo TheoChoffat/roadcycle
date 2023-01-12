@@ -42,6 +42,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
     });
   }
 
+  //Show the different sorting options for the routes
   void changeSort() {
     showDialog(
         context: context,
@@ -204,7 +205,7 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
   Stream<QuerySnapshot> routes =
       FirebaseFirestore.instance.collection('route').snapshots();
 
-//Get the data and get the route
+  //Get the data and get the route and open it on the map
   Future<void> searchRoute(Map<String, dynamic> data) async {
     Map<String, dynamic> srcMeta = data['sourceMeta'];
     String sourceString = json.encode(srcMeta);

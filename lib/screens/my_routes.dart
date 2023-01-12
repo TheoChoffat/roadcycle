@@ -30,6 +30,7 @@ class _MyRoutesState extends State<MyRoutes> {
     super.dispose();
   }
 
+  //Show dialogue so that the admin can change the name of a ROute
   Future openEditDialog(String id) => showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -54,7 +55,7 @@ class _MyRoutesState extends State<MyRoutes> {
                   child: const Text("Save name"))
             ],
           ));
-
+  //Show the different sorting options for the routes
   void changeSort() {
     showDialog(
         context: context,
@@ -218,8 +219,8 @@ class _MyRoutesState extends State<MyRoutes> {
       .where("idAdmin", isEqualTo: FirebaseAuth.instance.currentUser?.uid)
       .snapshots();
 
+  //Show dialogue so that the admin can delete the route
   showAlertDialog(BuildContext context, String id) {
-    // set up the buttons
     Widget cancelButton = TextButton(
       child: Text(AppLocalizations.of(context)!.cancel),
       onPressed: () {
@@ -234,7 +235,6 @@ class _MyRoutesState extends State<MyRoutes> {
       },
     );
 
-    // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(AppLocalizations.of(context)!.deleteRoute),
       content: Text(AppLocalizations.of(context)!.deleteRouteDescription),
@@ -244,7 +244,6 @@ class _MyRoutesState extends State<MyRoutes> {
       ],
     );
 
-    // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -253,13 +252,14 @@ class _MyRoutesState extends State<MyRoutes> {
     );
   }
 
+  //Admin can use this method to show the route on the map
   searchData(Map<String, dynamic> data) async {
     sharedPreferences.setBool('exist', true);
     sharedPreferences.setString('source', json.encode(data['sourceMeta']));
     sharedPreferences.setString(
         'destination', json.encode(data['destinationMeta']));
-        print((sharedPreferences.getString('destination')));
-                print(sharedPreferences.getString('source'));
+    print((sharedPreferences.getString('destination')));
+    print(sharedPreferences.getString('source'));
 
     LatLng sourceLatLng = getRouteLatLngStored('source');
     LatLng destinationLatLng = getRouteLatLngStored('destination');

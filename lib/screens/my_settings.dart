@@ -15,6 +15,7 @@ class MySettings extends StatefulWidget {
 }
 
 class _MySettingsState extends State<MySettings> {
+  //Show dialogue to change the language of the app
   Future askLanguage() async {
     return showDialog(
         context: context,

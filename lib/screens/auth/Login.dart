@@ -6,6 +6,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utility/AppColors.dart';
+import '../my_home.dart';
 import 'utils.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -44,6 +45,11 @@ class _LoginWidgetState extends State<LoginWidget> {
 
       isAdmin = isAdminChecked;
 
+      //Replace the last pages, so that the user does not return to the login page
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (BuildContext context) => MyHome()));
+
+      //Check if user is an admin
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isAdmin', isAdmin);
 

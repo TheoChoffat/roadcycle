@@ -23,6 +23,7 @@ class _AllRoutesState extends State<AllRoutes> {
       .orderBy("distance", descending: false)
       .snapshots();
 
+  //Show the different sorting options for the routes
   void changeSort() {
     showDialog(
         context: context,

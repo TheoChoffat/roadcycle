@@ -11,6 +11,7 @@ import '../main.dart';
 import '../screens/map/display/map_overview.dart';
 import '../screens/map/services/api_manager.dart';
 
+//Add the favorite to user in Firebase
 Future addFavorite(String routeId) async {
   FirebaseFirestore.instance
       .collection('user')
@@ -20,6 +21,7 @@ Future addFavorite(String routeId) async {
   });
 }
 
+//Remove the favorite from user in Firebase
 Future removeFavourite(String routeId) async {
   FirebaseFirestore.instance
       .collection('user')
@@ -29,6 +31,7 @@ Future removeFavourite(String routeId) async {
   });
 }
 
+//Class to show a list of all the Routes
 class RouteList extends StatelessWidget {
   RouteList({super.key, required this.routes});
 

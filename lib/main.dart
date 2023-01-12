@@ -37,8 +37,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
 
+  //Check if its the first time user use the app
   bool? firstTime = sharedPreferences.getBool("firstTime");
 
+  //Set the default app language
   void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
