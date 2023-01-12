@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../utility/AppColors.dart';
 import '../utility/BottomNavigation.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MySettings extends StatefulWidget {
   const MySettings(this.setLocale, {Key? key}) : super(key: key);
@@ -77,7 +78,50 @@ class _MySettingsState extends State<MySettings> {
           )
         ],
       ),
-      bottomNavigationBar: const BottomNavigation(),
+      bottomNavigationBar: BottomAppBar(
+        shape: const CircularNotchedRectangle(),
+        child: IconTheme(
+          data: const IconThemeData(color: Colors.black),
+          child: Row(
+            children: <Widget>[
+              const Spacer(),
+              IconButton(
+                tooltip: 'All Routes',
+                icon: const Icon(Icons.route),
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/all_routes");
+                },
+              ),
+              const Spacer(),
+              IconButton(
+                tooltip: 'Favourites',
+                icon: const Icon(Icons.favorite),
+                onPressed: () {
+                  Navigator.of(context).pushNamed("/favorites");
+                },
+              ),
+              const Spacer(),
+              const Spacer(),
+              const Spacer(),
+              IconButton(
+                tooltip: 'Settings',
+                icon: const Icon(Icons.settings, color: Colors.orange),
+                onPressed: () {},
+              ),
+              const Spacer(),
+              IconButton(
+                tooltip: 'Logout',
+                icon: const Icon(Icons.logout),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut();
+                  Navigator.of(context).pushNamed("");
+                },
+              ),
+              const Spacer(),
+            ],
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => Navigator.of(context).pushNamed("/my_home"),
         backgroundColor: AppColors.main.orange,
