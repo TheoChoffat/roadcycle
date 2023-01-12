@@ -24,7 +24,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -36,6 +36,8 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
+
+  bool? firstTime = sharedPreferences.getBool("firstTime");
 
   void setLocale(Locale locale) {
     setState(() {
@@ -55,7 +57,7 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      home: AuthUtils.checkLoginState(context),
+      home: AuthUtils.checkLoginState(context, firstTime),
       title: 'Roadcycle',
       theme: ThemeData(primarySwatch: Colors.blue),
       onGenerateRoute: (settings) {

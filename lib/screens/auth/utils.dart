@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:roadcycle/screens/introductionScreen.dart';
 import 'package:roadcycle/screens/my_routes.dart';
 
 import '../app_start.dart';
@@ -23,7 +24,7 @@ class Utils {
 bool isAdmin = false;
 
 class AuthUtils {
-  static checkLoginState(context) {
+  static checkLoginState(context, bool? firstTime) {
     return Scaffold(
       body: StreamBuilder<User?>(
           stream: FirebaseAuth.instance.authStateChanges(),
@@ -51,6 +52,9 @@ class AuthUtils {
                 },
               );
             } else {
+              if (firstTime == null) {
+                return IntroScreen();
+              }
               return AppStart();
             }
           }),
