@@ -134,7 +134,14 @@ class _MyHomeState extends State<MyHome> {
                                       return Align(
                                         alignment: Alignment.center,
                                         child: Text(
-                                            "Unleash the adventurer within and discover new routes with RoadCycle, the ultimate app for bikers. Find all the information you need, including distance, elevation and more.\nRide your way through ${routeCount} routes and ${favorites.length} of your favorites!",
+                                            AppLocalizations.of(context)!
+                                                    .homePageInformationTextOne +
+                                                " ${routeCount}" +
+                                                AppLocalizations.of(context)!
+                                                    .homePageInformationTextTwo +
+                                                "${favorites.length}" +
+                                                AppLocalizations.of(context)!
+                                                    .homePageInformationTextThree,
                                             style: GoogleFonts.permanentMarker(
                                                 fontSize: 17,
                                                 color: Colors.white)),

@@ -59,6 +59,37 @@ class _MySettingsState extends State<MySettings> {
         });
   }
 
+  //Show dialogue to change the language of the app
+  Future askAbout() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(AppLocalizations.of(context)!.aboutTitle),
+              content: SizedBox(
+                  height: 150,
+                  width: double.minPositive,
+                  child: SingleChildScrollView(
+                      child:
+                          Text(AppLocalizations.of(context)!.aboutContent))));
+        });
+  }
+
+  Future askCopyright() async {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: Text(AppLocalizations.of(context)!.copyrightTitle),
+              content: SizedBox(
+                  height: 150,
+                  width: double.minPositive,
+                  child: SingleChildScrollView(
+                      child: Text(
+                          AppLocalizations.of(context)!.copyrightContent))));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -84,7 +115,31 @@ class _MySettingsState extends State<MySettings> {
               ],
             ),
             onTap: askLanguage,
-          )
+          ),
+          ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.aboutTitle,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+            onTap: askAbout,
+          ),
+          ListTile(
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  AppLocalizations.of(context)!.copyrightTitle,
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+            onTap: askCopyright,
+          ),
         ],
       ),
       bottomNavigationBar: BottomAppBar(
