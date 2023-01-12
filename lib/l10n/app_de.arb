@@ -41,5 +41,16 @@
     "elevation" : "Höhenunterschied: ",
     "saveRoute" : "Route speichern",
     "favoriteRoute" : "Favoriten",
-    "startNewRoute" : "Starten Sie jetzt eine neue Route!"
+    "startNewRoute" : "Starten Sie jetzt eine neue Route!",
+    "sort" : "Sortieren nach",
+    "sortName" : "Name",
+    "sortDistance" : "Distanz",
+    "welcome": "Willkommen zu Roadcycle",
+    "introText" : "Finde die schönsten Fahrradstrecken der Schweiz",
+    "discover" : "Entdecken Sie neue Routen",
+    "discoverText" : "Unser Team erstellt andauernd neue Strecken für Sie.",
+    "likeRoutes" : "Like deine Lieblingsstrecken",
+    "likeRoutesText" : "Like deine Lieblingsstrecken um sie einfacher zu finden",
+    "skip" : "Überspringen",
+    "done" : "Fertig"
 }

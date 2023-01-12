@@ -36,6 +36,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     final isValid = formKey.currentState!.validate();
     if (!isValid) return;
 
+    //Try save new user to Firebase
     try {
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: emailController.text.trim(),
@@ -48,7 +49,8 @@ class _RegisterWidgetState extends State<RegisterWidget> {
       final json = {
         "firstname": firstnameController.text.trim(),
         "lastname": lastnameController.text.trim(),
-        "isAdmin": false
+        "isAdmin": false,
+        "favorites": []
       };
 
       await docUser.set(json);

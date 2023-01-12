@@ -16,6 +16,7 @@ class MySettings extends StatefulWidget {
 }
 
 class _MySettingsState extends State<MySettings> {
+  //Show dialogue to change the language of the app
   Future askLanguage() async {
     return showDialog(
         context: context,
@@ -23,7 +24,7 @@ class _MySettingsState extends State<MySettings> {
           return AlertDialog(
             title: Text(AppLocalizations.of(context)!.language),
             content: SizedBox(
-              height: 100,
+              height: 150,
               width: double.minPositive,
               child: ListView(
                 children: [
@@ -40,6 +41,14 @@ class _MySettingsState extends State<MySettings> {
                     onTap: () => {
                       widget.setLocale(
                           const Locale.fromSubtags(languageCode: 'de')),
+                      Navigator.of(context).pop()
+                    },
+                  ),
+                  ListTile(
+                    title: const Text("Français"),
+                    onTap: () => {
+                      widget.setLocale(
+                          const Locale.fromSubtags(languageCode: 'fr')),
                       Navigator.of(context).pop()
                     },
                   ),

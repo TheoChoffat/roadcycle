@@ -41,6 +41,17 @@
     "elevation" : "Elevation: ",
     "saveRoute" : "Save Route",
     "favoriteRoute" : "Favorite Routes",
-    "startNewRoute" : "Start a new Route right now!"
+    "startNewRoute" : "Start a new Route right now!",
+    "sort" : "Sort By",
+    "sortName" : "By Name",
+    "sortDistance" : "By Distance",
+    "welcome": "Welcome to Roadcycle",
+    "introText" : "Find the best cycling routes throughout Switzerland.",
+    "discover" : "Discover new Routes",
+    "discoverText" : "Our team creates the most beautiful cycling routes for you.",
+    "likeRoutes" : "Like your Favorite Routes",
+    "likeRoutesText" : "Like your favourite routes to make them easier to find.",
+    "skip" : "Skip",
+    "done" : "Done"
 
 }

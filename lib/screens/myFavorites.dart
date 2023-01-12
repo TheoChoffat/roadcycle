@@ -11,7 +11,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../utility/RouteList.dart';
 import 'map/display/map_overview.dart';
 import 'map/services/api_manager.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FavoritesWidget extends StatefulWidget {
   const FavoritesWidget({super.key});
@@ -41,6 +40,91 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
     });
   }
 
+  //Show the different sorting options for the routes
+  void changeSort() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text(AppLocalizations.of(context)!.sort),
+              content: SizedBox(
+                height: 220,
+                width: double.minPositive,
+                child: ListView(
+                  children: [
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortName),
+                          Icon(Icons.arrow_downward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("routeName", descending: false)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortName),
+                          Icon(Icons.arrow_upward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("routeName", descending: true)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortDistance),
+                          Icon(Icons.arrow_downward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("distance", descending: false)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortDistance),
+                          Icon(Icons.arrow_upward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("distance", descending: true)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,6 +132,17 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
         title: Text(AppLocalizations.of(context)!.favoriteRoute),
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.main.orange,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.filter_list,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              changeSort();
+            },
+          )
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
           stream: routes,
@@ -78,7 +173,6 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
                     children: [
                       FavoriteButton(
                         isFavorite: true,
-                        // iconDisabledColor: Colors.white,
                         valueChanged: (isFavorite) {
                           if (isFavorite == true) {
                             addFavorite(document.reference.id);
@@ -149,10 +243,10 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
     );
   }
 
-  final Stream<QuerySnapshot> routes =
+  Stream<QuerySnapshot> routes =
       FirebaseFirestore.instance.collection('route').snapshots();
 
-//Get the data and get the route
+  //Get the data and get the route and open it on the map
   Future<void> searchRoute(Map<String, dynamic> data) async {
     Map<String, dynamic> srcMeta = data['sourceMeta'];
     String sourceString = json.encode(srcMeta);

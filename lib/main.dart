@@ -24,7 +24,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   sharedPreferences = await SharedPreferences.getInstance();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -37,6 +37,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale? _locale;
 
+  //Check if its the first time user use the app
+  bool? firstTime = sharedPreferences.getBool("firstTime");
+
+  //Set the default app language
   void setLocale(Locale locale) {
     setState(() {
       _locale = locale;
@@ -55,7 +59,8 @@ class _MyAppState extends State<MyApp> {
         GlobalCupertinoLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
       ],
-      title: 'Flutter Demo',
+      home: AuthUtils.checkLoginState(context, firstTime),
+      title: 'Roadcycle',
       theme: ThemeData(primarySwatch: Colors.blue),
       onGenerateRoute: (settings) {
         switch (settings.name) {
@@ -83,8 +88,10 @@ class _MyAppState extends State<MyApp> {
           case "/favorites":
             return MaterialPageRoute(
                 builder: (context) => const FavoritesWidget());
-          default:
+          case "/start":
             return MaterialPageRoute(builder: (context) => const AppStart());
+          default:
+            return null;
         }
       },
     );

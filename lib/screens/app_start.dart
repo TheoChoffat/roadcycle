@@ -60,7 +60,6 @@ class AppStart extends StatelessWidget {
                   ),
                   color: Colors.black,
                 ),
-                //child: Image.asset("assets/bgImage.jpg"),
               ),
               buttonSection,
             ]),

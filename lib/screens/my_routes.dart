@@ -1,10 +1,17 @@
 // ignore: file_names
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:latlong2/latlong.dart';
+import '../main.dart';
 import '../utility/AppColors.dart';
 import '../utility/AdminDrawer.dart';
+import 'map/display/map_overview.dart';
+import 'map/services/api_manager.dart';
+import 'map/setup/shared_prefs.dart';
 
 class MyRoutes extends StatefulWidget {
   const MyRoutes({super.key});
@@ -23,6 +30,7 @@ class _MyRoutesState extends State<MyRoutes> {
     super.dispose();
   }
 
+  //Show dialogue so that the admin can change the name of a ROute
   Future openEditDialog(String id) => showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -47,6 +55,90 @@ class _MyRoutesState extends State<MyRoutes> {
                   child: const Text("Save name"))
             ],
           ));
+  //Show the different sorting options for the routes
+  void changeSort() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+              title: Text(AppLocalizations.of(context)!.sort),
+              content: SizedBox(
+                height: 220,
+                width: double.minPositive,
+                child: ListView(
+                  children: [
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortName),
+                          Icon(Icons.arrow_downward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          _routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("routeName", descending: false)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortName),
+                          Icon(Icons.arrow_upward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          _routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("routeName", descending: true)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortDistance),
+                          Icon(Icons.arrow_downward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          _routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("distance", descending: false)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                    ListTile(
+                      title: Row(
+                        children: [
+                          Text(AppLocalizations.of(context)!.sortDistance),
+                          Icon(Icons.arrow_upward_outlined)
+                        ],
+                      ),
+                      onTap: () => {
+                        setState(() {
+                          _routes = FirebaseFirestore.instance
+                              .collection('route')
+                              .orderBy("distance", descending: true)
+                              .snapshots();
+                        }),
+                        Navigator.of(context).pop()
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +146,17 @@ class _MyRoutesState extends State<MyRoutes> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context)!.myRoutes),
         backgroundColor: AppColors.main.orange,
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.filter_list,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              changeSort();
+            },
+          )
+        ],
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _routes,
@@ -88,6 +191,8 @@ class _MyRoutesState extends State<MyRoutes> {
                         icon: const Icon(Icons.delete)),
                   ],
                 ),
+                onTap: (() => searchData(data)),
+                // onTap: searchData(data),
               );
             }).toList(),
           );
@@ -109,13 +214,13 @@ class _MyRoutesState extends State<MyRoutes> {
     );
   }
 
-  final Stream<QuerySnapshot> _routes = FirebaseFirestore.instance
+  Stream<QuerySnapshot> _routes = FirebaseFirestore.instance
       .collection('route')
       .where("idAdmin", isEqualTo: FirebaseAuth.instance.currentUser?.uid)
       .snapshots();
 
+  //Show dialogue so that the admin can delete the route
   showAlertDialog(BuildContext context, String id) {
-    // set up the buttons
     Widget cancelButton = TextButton(
       child: Text(AppLocalizations.of(context)!.cancel),
       onPressed: () {
@@ -130,7 +235,6 @@ class _MyRoutesState extends State<MyRoutes> {
       },
     );
 
-    // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(AppLocalizations.of(context)!.deleteRoute),
       content: Text(AppLocalizations.of(context)!.deleteRouteDescription),
@@ -140,12 +244,32 @@ class _MyRoutesState extends State<MyRoutes> {
       ],
     );
 
-    // show the dialog
     showDialog(
       context: context,
       builder: (BuildContext context) {
         return alert;
       },
     );
+  }
+
+  //Admin can use this method to show the route on the map
+  searchData(Map<String, dynamic> data) async {
+    sharedPreferences.setBool('exist', true);
+    sharedPreferences.setString('source', json.encode(data['sourceMeta']));
+    sharedPreferences.setString(
+        'destination', json.encode(data['destinationMeta']));
+    print((sharedPreferences.getString('destination')));
+    print(sharedPreferences.getString('source'));
+
+    LatLng sourceLatLng = getRouteLatLngStored('source');
+    LatLng destinationLatLng = getRouteLatLngStored('destination');
+    Map modifiedResponse =
+        await getDirectionsResponse(sourceLatLng, destinationLatLng);
+
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => MapOverview(modifiedResponse: modifiedResponse)));
   }
 }

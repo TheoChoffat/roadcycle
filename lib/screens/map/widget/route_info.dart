@@ -15,6 +15,10 @@ Widget routeInfo(BuildContext context, String distance,
   // Get source and destination addresses from sharedPreferences
   String sourceAddress = getPlacesStored('source');
   String destinationAddress = getPlacesStored('destination');
+  bool isExist = sharedPreferences.getBool('exist')!;
+  if (isExist == null){
+    isExist == false;
+  }
 
   return Positioned(
     bottom: 0,
@@ -46,10 +50,11 @@ Widget routeInfo(BuildContext context, String distance,
                   ),
                 ),
                 isAdmin
-                    ? ElevatedButton(
+                    ? !isExist ? ElevatedButton(
                         onPressed: () async {
                           await saveData(distance, durationFormatted, ascent,
                               descent, sourceAddress, destinationAddress);
+                              Navigator.of(context).pushNamed("/my_routes");
                         },
                         style: ElevatedButton.styleFrom(
                             padding: const EdgeInsets.all(20),
@@ -59,14 +64,14 @@ Widget routeInfo(BuildContext context, String distance,
                             children: [
                               Text(AppLocalizations.of(context)!.saveRoute),
                             ]))
-                    : const Text(""),
+                    : const Text("") : const Text(""),
               ]),
         ),
       ),
     ),
   );
 }
-
+//Save the route
 Future<void> saveData(String distance, String durationFormatted, String ascent,
     String descent, String sourceAdd, String destinationAdd) async {
   String userId = FirebaseAuth.instance.currentUser!.uid;
