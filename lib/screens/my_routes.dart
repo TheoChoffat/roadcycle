@@ -1,10 +1,17 @@
 // ignore: file_names
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:latlong2/latlong.dart';
+import '../main.dart';
 import '../utility/AppColors.dart';
 import '../utility/AdminDrawer.dart';
+import 'map/display/map_overview.dart';
+import 'map/services/api_manager.dart';
+import 'map/setup/shared_prefs.dart';
 
 class MyRoutes extends StatefulWidget {
   const MyRoutes({super.key});
@@ -183,6 +190,8 @@ class _MyRoutesState extends State<MyRoutes> {
                         icon: const Icon(Icons.delete)),
                   ],
                 ),
+                onTap: (() => searchData(data)),
+                // onTap: searchData(data),
               );
             }).toList(),
           );
@@ -242,5 +251,25 @@ class _MyRoutesState extends State<MyRoutes> {
         return alert;
       },
     );
+  }
+
+  searchData(Map<String, dynamic> data) async {
+    sharedPreferences.setBool('exist', true);
+    sharedPreferences.setString('source', json.encode(data['sourceMeta']));
+    sharedPreferences.setString(
+        'destination', json.encode(data['destinationMeta']));
+        print((sharedPreferences.getString('destination')));
+                print(sharedPreferences.getString('source'));
+
+    LatLng sourceLatLng = getRouteLatLngStored('source');
+    LatLng destinationLatLng = getRouteLatLngStored('destination');
+    Map modifiedResponse =
+        await getDirectionsResponse(sourceLatLng, destinationLatLng);
+
+    // ignore: use_build_context_synchronously
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => MapOverview(modifiedResponse: modifiedResponse)));
   }
 }
