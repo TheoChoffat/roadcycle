@@ -100,8 +100,8 @@ class _AllRoutesState extends State<AllRoutes> {
                               .orderBy("distance", descending: true)
                               .snapshots();
                         }),
-                        Navigator.of(context).pop()
-                      },
+                        Navigator.of(context).pop(), 
+                      }, 
                     ),
                   ],
                 ),

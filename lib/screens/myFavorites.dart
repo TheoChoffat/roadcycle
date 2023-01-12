@@ -11,6 +11,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../utility/RouteList.dart';
 import 'map/display/map_overview.dart';
 import 'map/services/api_manager.dart';
+import 'map/setup/shared_prefs.dart';
 
 class FavoritesWidget extends StatefulWidget {
   const FavoritesWidget({super.key});
@@ -248,16 +249,20 @@ class _FavoritesWidgetState extends State<FavoritesWidget> {
 
   //Get the data and get the route and open it on the map
   Future<void> searchRoute(Map<String, dynamic> data) async {
-    Map<String, dynamic> srcMeta = data['sourceMeta'];
-    String sourceString = json.encode(srcMeta);
-    Map<String, dynamic> dstMeta = data['destinationMeta'];
-    String destinationString = json.encode(dstMeta);
-    sharedPreferences.setString('source', sourceString);
-    sharedPreferences.setString('destination', destinationString);
+        sharedPreferences.setBool('exist', false);
+    sharedPreferences.setString('source', json.encode(data['sourceMeta']));
+    sharedPreferences.setString(
+        'destination', json.encode(data['destinationMeta']));
+        print((sharedPreferences.getString('destination')));
+                print(sharedPreferences.getString('source'));
 
-    LatLng source = LatLng(data['originLat'], data['originLng']);
-    LatLng destination = LatLng(data['destinationLat'], data['destinationLng']);
-    Map modifiedResponse = await getDirectionsResponse(source, destination);
+    LatLng sourceLatLng = getRouteLatLngStored('source');
+    LatLng destinationLatLng = getRouteLatLngStored('destination');
+
+     print(sourceLatLng);
+    print(destinationLatLng);
+    Map modifiedResponse =
+        await getDirectionsResponse(sourceLatLng, destinationLatLng);
 
     // ignore: use_build_context_synchronously
     Navigator.push(

@@ -45,6 +45,8 @@ class RouteList extends StatelessWidget {
   Widget build(BuildContext context) {
     //Function to open the selected Route on the map
     Future<void> searchRoute(Map<String, dynamic> data) async {
+          sharedPreferences.setBool('exist', false);
+
       Map<String, dynamic> srcMeta = data['sourceMeta'];
       String sourceString = json.encode(srcMeta);
       Map<String, dynamic> dstMeta = data['destinationMeta'];
