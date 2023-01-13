@@ -113,51 +113,11 @@ class _MyHomeState extends State<MyHome> {
                   children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.all(10),
-                      child: FutureBuilder(
-                        future: FirebaseFirestore.instance
-                            .collection("route")
-                            .get(),
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            var routeCount = snapshot.data?.docs.length;
-                            return Column(
-                              children: <Widget>[
-                                StreamBuilder(
-                                  stream: _favorites.snapshots(),
-                                  builder: (BuildContext context,
-                                      AsyncSnapshot snapshot) {
-                                    if (snapshot.hasData &&
-                                        snapshot.data.data() != null) {
-                                      var favorites = snapshot.data
-                                          .data()['favorites'] as List;
-                                      return Align(
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                            AppLocalizations.of(context)!
-                                                    .homePageInformationTextOne +
-                                                " ${routeCount}" +
-                                                AppLocalizations.of(context)!
-                                                    .homePageInformationTextTwo +
-                                                "${favorites.length}" +
-                                                AppLocalizations.of(context)!
-                                                    .homePageInformationTextThree,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.white)),
-                                      );
-                                    } else {
-                                      return const CircularProgressIndicator();
-                                    }
-                                  },
-                                ),
-                              ],
-                            );
-                          } else {
-                            return const CircularProgressIndicator();
-                          }
-                        },
-                      ),
-                    ),
+                      child: Text(
+                          AppLocalizations.of(context)!
+                              .homePageInformationTextOne,
+                          style: TextStyle(fontSize: 16, color: Colors.white)),
+                    )
                   ],
                 ),
               ),

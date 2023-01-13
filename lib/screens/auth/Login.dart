@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:roadcycle/screens/my_routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../utility/AppColors.dart';
 import '../my_home.dart';
@@ -45,10 +46,6 @@ class _LoginWidgetState extends State<LoginWidget> {
 
       isAdmin = isAdminChecked;
 
-      //Replace the last pages, so that the user does not return to the login page
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (BuildContext context) => MyHome()));
-
       //Check if user is an admin
       final prefs = await SharedPreferences.getInstance();
       await prefs.setBool('isAdmin', isAdmin);
@@ -56,9 +53,15 @@ class _LoginWidgetState extends State<LoginWidget> {
       if (isAdmin == true) {
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushNamed("/my_routes");
+        //Replace the last pages, so that the user does not return to the login page
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext context) => MyRoutes()));
       } else {
         // ignore: use_build_context_synchronously
         Navigator.of(context).pushNamed("/my_home");
+        //Replace the last pages, so that the user does not return to the login page
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (BuildContext context) => MyHome()));
       }
     } on FirebaseAuthException catch (e) {
       Utils.showSnackBar(e.message);

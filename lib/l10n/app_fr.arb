@@ -57,7 +57,5 @@
     "copyrightTitle" : "Droits d'auteur",
     "aboutContent" : "Bienvenue sur RoadCycle, l'application ultime pour les cyclistes. RoadCycle a été créé pour un projet de classe à l'HES-SO Valais Wallis.\nBonne randonnée à vélo!",
     "copyrightContent" : "Copyright ©2022 RoadCycle. All rights reserved.",
-    "homePageInformationTextOne" : "Libérez l'aventurier qui est en vous et découvrez de nouvelles routes avec RoadCycle, l'application ultime pour les cyclistes.\nParcourez",
-    "homePageInformationTextTwo" : " routes et ", 
-    "homePageInformationTextThree" : " de vos routes préférées !"
+    "homePageInformationTextOne" : "Libérez l'aventurier qui est en vous et découvrez de nouvelles routes avec RoadCycle, l'application ultime pour les cyclistes."
 }

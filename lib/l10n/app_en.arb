@@ -57,7 +57,5 @@
     "copyrightTitle" : "Copyright",
     "aboutContent" : "Welcome to RoadCycle, the ultimate app for bikers. RoadCycle was created as a project class in the HES-SO Valais Wallis.\n\nHappy cycling!",
     "copyrightContent" : "Copyright ©2022 RoadCycle. All rights reserved.",
-    "homePageInformationTextOne" : "Unleash the adventurer within and discover new routes with RoadCycle, the ultimate app for bikers.\nRide your way through",
-    "homePageInformationTextTwo" : " routes and ",
-    "homePageInformationTextThree" : " of your favorites!"
+    "homePageInformationTextOne" : "Unleash the adventurer within and discover new routes with RoadCycle, the ultimate app for bikers."
 }
